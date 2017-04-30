@@ -11,6 +11,7 @@ sevSeg4094::sevSeg4094(uint8_t digits,uint8_t dataPin,uint8_t clockPin,uint8_t s
   _clockPin=clockPin;
   _strobePin=strobePin;
   _leadingZeros=false;
+  _p=false;
 }
 
 uint8_t sevSeg4094::findLength(unsigned long n){
@@ -25,7 +26,6 @@ uint8_t sevSeg4094::findLength(unsigned long n){
 void sevSeg4094::setLeadingZeros(boolean leadingZeros){
   _leadingZeros=leadingZeros;
 }
-
 
 void sevSeg4094::writeArray(int arr[]){
   byte segment[]={63, 6, 91, 79, 102, 109, 125, 7, 127, 111,0};
@@ -47,6 +47,7 @@ void sevSeg4094::test(){
     delay(100);
   }
 }
+
 void sevSeg4094::writeNumbers(int nums,int num[],int len[]){
   int arr[_digits];
   int t1=0,t2=-1,t3;
@@ -68,11 +69,12 @@ void sevSeg4094::writeNumbers(int nums,int num[],int len[]){
   }
   writeArray(arr);
 }
+
 void sevSeg4094::writeNumbers(int nums,int num[],int len[],int off){
   int arr[_digits];
   int t1=0,t2=-1,t3;
   for(int i=0;i<nums;i++){
-    Serial.println(num[i]);
+    //Serial.println(num[i]);
     t1=num[i];
     t2+=len[i];
     t3=findLength(t1);
@@ -96,7 +98,8 @@ void sevSeg4094::writeNumbers(int nums,int num[],int len[],int off){
   }
   writeArray(arr);
 }
-void sevSeg4094::createBlink(int nums, int num[],int len[],int off,int blinkDelay){
+
+void sevSeg4094::blinkNumbers(int nums, int num[],int len[],int off,int blinkDelay){
   if ((millis() - _lastBlinkTime) > blinkDelay) {
     _lastBlinkTime=millis();
     if ((millis()/1000)%2 == 0){
@@ -106,4 +109,79 @@ void sevSeg4094::createBlink(int nums, int num[],int len[],int off,int blinkDela
       writeNumbers(nums,num,len);
     }
   }
+}
+void sevSeg4094::writeNum(unsigned long num){
+  int arr[_digits];
+  uint8_t len=0;
+  //Serial.println(num);
+  int x=num;
+  len=findLength(num);
+  if (len <= _digits){
+    x=num;
+  }
+  else{
+    serialPrint("num larger than digits");
+    for (int j=0;j<len-_digits;j++){
+      x/=10;
+    }
+  }
+  for (int i=0;i<_digits;i++){
+    if (i>=len){
+      arr[i]=10;
+    }
+    else{
+      if (_leadingZeros==false){
+        arr[i]=x%10;
+        x/=10;
+      }
+    }
+  }
+  writeArray(arr);
+}
+void sevSeg4094::writeNum(unsigned long num,uint8_t c){
+  int arr[_digits];
+  uint8_t len=0;
+  //Serial.println(num);
+  int x=num;
+  len=findLength(num);
+  if (len <= _digits){
+    x=num;
+  }
+  else{
+    seriaPrint("num larger than digits");
+    for (int j=0;j<len-_digits;j++){
+      x/=10;
+    }
+  }
+  for (int i=0;i<_digits;i++){
+    if (i>=len){
+      arr[i]=10;
+    }
+    else{
+      if (_leadingZeros==false){
+        arr[i]=x%10;
+        x/=10;
+      }
+    }
+  }
+  arr[c]=10;
+  writeArray(arr);
+}
+void sevSeg4094::blinkNum(unsigned long num,int off,int blinkDelay){
+  if ((millis() - _lastBlinkTime) > blinkDelay) {
+    _lastBlinkTime=millis();
+    if ((millis()/1000)%2 == 0){
+      writeNum(num);
+    }
+    else{
+      writeNumbers(num,off-1);
+    }
+  }
+}
+void sevSeg4094::setPrint(boolean p){
+  _p=p;
+}
+void sevSeg4094::serialPrint(String s){
+  if (_p==true)
+    Serial.println(s);
 }

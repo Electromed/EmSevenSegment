@@ -8,9 +8,8 @@ void setup(){
 
 //=============================================================//
 void loop(){
-  //sev.test();
-  int arr[]={34,2,5};
-  int len[]={2,1,1};
+  int arr[]={5,67,3};
+  int len[]={1,2,1};
   sev.createBlink(3,arr,len,2,500);
 }
 

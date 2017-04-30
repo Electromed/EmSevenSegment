@@ -16,4 +16,7 @@ setLeadingZeros	KEYWORD2
 writeNumbers	KEYWORD2
 createBlink	KEYWORD2
 writeArray	KEYWORD2
-test()	KEYWORD2
+test	KEYWORD2
+blinkNum	KEYWORD2
+writeArray	KEYWORD2
+setPrint	KEYWORD2
