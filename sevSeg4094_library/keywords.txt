@@ -1,0 +1,19 @@
+###########################################
+# Syntax Coloring Map For sevSeg4094
+###########################################
+
+###########################################
+# Datatypes (KEYWORD1)
+###########################################
+
+sevSeg4094	KEYWORD1
+
+###########################################
+# Methods and Functions (KEYWORD2)
+###########################################
+
+setLeadingZeros	KEYWORD2
+writeNumbers	KEYWORD2
+createBlink	KEYWORD2
+writeArray	KEYWORD2
+test()	KEYWORD2
