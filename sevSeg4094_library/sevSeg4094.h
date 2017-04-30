@@ -16,13 +16,14 @@ class sevSeg4094{
     void test();
   
   private:
-    unsigned long _lastBlinkTime = 0;
-    uint8_t _findLength(unsigned long n)
+    unsigned long _lastBlinkTime;
+    uint8_t findLength(unsigned long n);
     uint8_t _digits;
     uint8_t _dataPin;
     uint8_t _clockPin;
     uint8_t _strobePin;
-    boolean _leadingZeros; 
+    boolean _leadingZeros;
+
 };
 
 #endif

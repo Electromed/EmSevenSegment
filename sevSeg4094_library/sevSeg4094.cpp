@@ -22,7 +22,7 @@ uint8_t sevSeg4094::findLength(unsigned long n){
   return l;
 }
 
-void setLeadingZeros(boolean leadingZeros){
+void sevSeg4094::setLeadingZeros(boolean leadingZeros){
   _leadingZeros=leadingZeros;
 }
 
@@ -86,7 +86,7 @@ void sevSeg4094::writeNumbers(int nums,int num[],int len[],int off){
         t1/=10;
       }
       for(int j=0;j<len[i];j++){
-        arr[digits-1-(t2-j)]=t1%10;
+        arr[_digits-1-(t2-j)]=t1%10;
         t1/=10;
         if(j>=t3 && _leadingZeros==false){
           arr[_digits-1-(t2-j)]=10;
@@ -97,8 +97,8 @@ void sevSeg4094::writeNumbers(int nums,int num[],int len[],int off){
   writeArray(arr);
 }
 void sevSeg4094::createBlink(int nums, int num[],int len[],int off,int blinkDelay){
-  if ((millis() - lastBlinkTime) > blinkDelay) {
-    lastBlinkTime=millis();
+  if ((millis() - _lastBlinkTime) > blinkDelay) {
+    _lastBlinkTime=millis();
     if ((millis()/1000)%2 == 0){
       writeNumbers(nums,num,len,off);
     }
