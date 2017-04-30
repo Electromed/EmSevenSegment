@@ -1,6 +1,8 @@
 /*Error 
 
 10 = blank
+thisswitch returns 255 if no switch is pressed
+else number of switch
 
 */
 
@@ -19,8 +21,10 @@ int strobe=12;
 
 unsigned long lastBlinkTime = 0;
 
-int buttonNo=4;
-int buttonPin[]={2,3,4,5};
+#define NUMBUTTONS 2
+int buttonPin[]={3,4};
+byte pressed[NUMBUTTONS], justpressed[NUMBUTTONS], justreleased[NUMBUTTONS];
+byte previous_keystate[NUMBUTTONS], current_keystate[NUMBUTTONS];
 
 char mode='n';
 
@@ -31,10 +35,11 @@ void setup(){
   pinMode(data,OUTPUT);
   pinMode(clk,OUTPUT);
   buttonInit();
+  setInterruptButton(2);
 }
 
 //==============================================================//
-
+/*
 void writeNum(unsigned long num, uint8_t c){
   int arr[digits];
   int len=0,x=num;
@@ -91,6 +96,7 @@ void writeNum(unsigned long num){
   }
   writeArray(arr);
 }
+*/
 int findLength(int n){
   uint8_t l=0;
   while(n!=0){
@@ -178,7 +184,7 @@ void createBlink(int nums, int num[],int len[],int off,int blinkDelay){
     }
   }
 }
-void checkUP(){
+/*void checkUP(){
   writeNum(12345);
   delay(1000);
   writeNum(645);
@@ -187,7 +193,7 @@ void checkUP(){
   delay(1000);
   writeNum(90);
   delay(1000);
-}
+}*/
 
 //============================================================//
 
@@ -195,7 +201,7 @@ void setInterruptButton(uint8_t x){
   attachInterrupt(digitalPinToInterrupt(2),modeChange,RISING);
 }
 void buttonInit(){
- for (int i=0;i<buttonNo;i++){
+ for (int i=0;i<NUMBUTTONS;i++){
   pinMode(buttonPin[i],INPUT);
  }
 }
@@ -207,19 +213,65 @@ void modeChange(){
     mode='n';
   }
 }
-void checkButton(){
-  for(int i=0;i<buttonNo;i++){
-    
+void check_switches(){
+  static byte previousstate[NUMBUTTONS];
+  static byte currentstate[NUMBUTTONS];
+  static long lasttime;
+  byte index;
+  if (millis() < lasttime) {
+    // we wrapped around, lets just try again
+    lasttime = millis();
+  }
+  if ((lasttime + DEBOUNCE) > millis()) {
+    // not enough time has passed to debounce
+    return; 
+  }
+  // ok we have waited DEBOUNCE milliseconds, lets reset the timer
+  lasttime = millis();
+  for (index = 0; index < NUMBUTTONS; index++) {
+    justpressed[index] = 0;       //when we start, we clear out the "just" indicators
+    justreleased[index] = 0;
+    currentstate[index] = digitalRead(buttonPin[index]);   //read the button
+    if (currentstate[index] == previousstate[index]) {
+      if ((pressed[index] == LOW) && (currentstate[index] == LOW)) {
+        // just pressed
+        justpressed[index] = 1;
+      }
+      else if ((pressed[index] == HIGH) && (currentstate[index] == HIGH)) {
+        justreleased[index] = 1; // just released
+      }
+      pressed[index] = !currentstate[index];  //remember, digital HIGH means NOT pressed
+    }
+    previousstate[index] = currentstate[index]; //keep a running tally of the buttons
   }
 }
+byte thisSwitch_justPressed() {
+  byte thisSwitch = 255;
+  check_switches();  //check the switches &amp; get the current state
+  for (byte i = 0; i < NUMBUTTONS; i++) {
+    current_keystate[i]=justpressed[i];
+    if (current_keystate[i] != previous_keystate[i]) {
+      if (current_keystate[i]) thisSwitch=i;
+    }
+    previous_keystate[i]=current_keystate[i];
+  }  
+  return thisSwitch;
+}
+
+//=============================================================//
 void loop(){
   //checkUP();
   //test();
   if (mode == 'n')
     writeNumbers(nums,numbers,lengths);
   else if (mode == 's'){
+    byte thisSwitch=thisSwitch_justPressed();
+    if (thisSwitch!=255)
+      Serial.println(thisSwitch);
     createBlink(nums,numbers,lengths,2,500);
     
     //delay(1000);
   }
 }
+
+
