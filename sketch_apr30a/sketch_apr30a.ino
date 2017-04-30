@@ -10,7 +10,8 @@ int clk=3;
 int strobe=4;
 
 int digits=4;
-int nums=4; //total number to be printed
+int nums=2; //total number to be printed
+boolean leadingZeros=false;
 
 void setup(){
   Serial.begin(9600);
@@ -50,42 +51,39 @@ void writeNum(unsigned long num, uint8_t c){
 }
 void writeNum(unsigned long num){
   int arr[digits];
-  int len=0,x=num;
-  while (x!=0){
-    len++;
-    x/=10;
-  }
-  Serial.println(len);
+  uint8_t len=0;
+  Serial.println(num);
+  int x=num;
+  len=findLength(num);
   if (len <= digits){
     x=num;
-    for (int i=0;i<digits;i++){
-      if (i>=len){
-        arr[i]=10;
-      }
-      else{
+  }
+  else{
+    Serial.println("num larger than digits");
+    for (int j=0;j<len-digits;j++){
+      x/=10;
+    }
+  }
+  for (int i=0;i<digits;i++){
+    if (i>=len){
+      arr[i]=10;
+    }
+    else{
+      if (leadingZeros==false){
         arr[i]=x%10;
         x/=10;
       }
     }
-    writeArray(arr);
   }
-  else{
-    Serial.print(num);
-    Serial.println("num larger than digits");
-    x=num;
-    unsigned long y=0;
-    while(x!=0){
-      y=(y*10)+x%10;
-      Serial.println(y);
-      x/=10;
-    }
-    Serial.println(y);
-    for(int i=0;i<digits;i++){
-      arr[digits-1-i]=y%10;
-      y/=10;
-    }
-    writeArray(arr);
+  writeArray(arr);
+}
+int findLength(int n){
+  uint8_t l=0;
+  while(n!=0){
+    l++;
+    n/=10;
   }
+  return l;
 }
 void writeArray(int arr[]){
   byte segment[]={63, 6, 91, 79, 102, 109, 125, 7, 127, 111,0};
@@ -106,11 +104,26 @@ void test(){
     delay(1000);
   }
 }
-
-void writeNumbers(int num[]){
+void writeNumbers(int num[],int len[]){
   int arr[digits];
-  for(int i=0;i<nums;i++)
+  int t1=0,t2=-1,t3;
+  for(int i=0;i<nums;i++){
     Serial.println(num[i]);
+    t1=num[i];
+    t2+=len[i];
+    t3=findLength(t1);
+    for (int j=0;j<t3-len[i];j++){
+      t1/=10;
+    }
+    for(int j=0;j<len[i];j++){
+      arr[digits-1-(t2-j)]=t1%10;
+      t1/=10;
+      if(j>=t3 && leadingZeros==false){
+        arr[digits-1-(t2-j)]=10;
+      }
+    }    
+  }
+  writeArray(arr);
 }
 
 void checkUP(){
@@ -126,6 +139,8 @@ void checkUP(){
 void loop(){
   checkUP();
   //test();
-  //int arr[]={2,3,4,5};
-  //writeNumbers(arr);
+  int arr[]={256,4};
+  int len[]={2,2};
+  writeNumbers(arr,len);
+  delay(1000);
 }
