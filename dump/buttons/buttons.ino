@@ -5,15 +5,23 @@
 */
 
 
-int data=2;
-int clk=3;
-int strobe=4;
-
 int digits=4;
 int nums=3; //total number to be printed
 boolean leadingZeros=false;
 
+int numbers[]={26,4,5};
+int lengths[]={2,1,1};  
+
+int data=10;
+int clk=11;
+int strobe=12;
+
 unsigned long lastBlinkTime = 0;
+
+int buttonNo=4;
+int buttonPin[]={2,3,4,5};
+
+char mode='n';
 
 void setup(){
   Serial.begin(9600);
@@ -21,7 +29,11 @@ void setup(){
   pinMode(strobe,OUTPUT);
   pinMode(data,OUTPUT);
   pinMode(clk,OUTPUT);
+  buttonInit();
+  attachInterrupt(digitalPinToInterrupt(2),modeChange,RISING);
 }
+
+//==============================================================//
 
 void writeNum(unsigned long num, uint8_t c){
   int arr[digits];
@@ -106,7 +118,7 @@ void test(){
     delay(1000);
   }
 }
-void writeNumbers(int num[],int len[]){
+void writeNumbers(int nums,int num[],int len[]){
   int arr[digits];
   int t1=0,t2=-1,t3;
   for(int i=0;i<nums;i++){
@@ -127,7 +139,7 @@ void writeNumbers(int num[],int len[]){
   }
   writeArray(arr);
 }
-void writeNumbers(int num[],int len[],int off){
+void writeNumbers(int nums,int num[],int len[],int off){
   int arr[digits];
   int t1=0,t2=-1,t3;
   for(int i=0;i<nums;i++){
@@ -166,7 +178,6 @@ void createBlink(int num[],int len[],int off,int blinkDelay){
     }
   }
 }
-
 void checkUP(){
   writeNum(12345);
   delay(1000);
@@ -177,12 +188,30 @@ void checkUP(){
   writeNum(90);
   delay(1000);
 }
+
+//============================================================//
+
+void buttonInit(){
+ for (int i=0;i<buttonNo;i++){
+  pinMode(buttonPin[i],INPUT);
+ }
+}
+void modeChange(){
+  if (mode == 'n'){
+    mode='s';
+  }
+  else if (mode == 's'){
+    mode='n';
+  }
+}
+
 void loop(){
   //checkUP();
   //test();
-  int arr[]={26,4,5};
-  int len[]={2,1,1};
-//  writeNumbers(arr,len,2);
-  createBlink(arr,len,1,500);
-  //delay(1000);
+  if (mode == 'n')
+    writeNumbers(nums,numbers,lengths);
+  else if (mode == 's'){
+    createBlink(nums,numbers,lengths,2,500);
+    //delay(1000);
+  }
 }

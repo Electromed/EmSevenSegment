@@ -5,9 +5,9 @@
 */
 
 
-int data=2;
-int clk=3;
-int strobe=4;
+int data=10;
+int clk=11;
+int strobe=12;
 
 int digits=4;
 int nums=3; //total number to be printed
