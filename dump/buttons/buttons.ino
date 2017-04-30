@@ -4,6 +4,7 @@
 
 */
 
+#define DEBOUNCE 10  // ms to debounce.
 
 int digits=4;
 int nums=3; //total number to be printed
@@ -30,7 +31,6 @@ void setup(){
   pinMode(data,OUTPUT);
   pinMode(clk,OUTPUT);
   buttonInit();
-  attachInterrupt(digitalPinToInterrupt(2),modeChange,RISING);
 }
 
 //==============================================================//
@@ -115,7 +115,7 @@ void test(){
       arr[j]=i;
     }
     writeArray(arr);
-    delay(1000);
+    delay(100);
   }
 }
 void writeNumbers(int nums,int num[],int len[]){
@@ -167,14 +167,14 @@ void writeNumbers(int nums,int num[],int len[],int off){
   }
   writeArray(arr);
 }
-void createBlink(int num[],int len[],int off,int blinkDelay){
+void createBlink(int nums, int num[],int len[],int off,int blinkDelay){
   if ((millis() - lastBlinkTime) > blinkDelay) {
     lastBlinkTime=millis();
     if ((millis()/1000)%2 == 0){
-      writeNumbers(num,len,off);
+      writeNumbers(nums,num,len,off);
     }
     else{
-      writeNumbers(num,len);
+      writeNumbers(nums,num,len);
     }
   }
 }
@@ -191,6 +191,9 @@ void checkUP(){
 
 //============================================================//
 
+void setInterruptButton(uint8_t x){
+  attachInterrupt(digitalPinToInterrupt(2),modeChange,RISING);
+}
 void buttonInit(){
  for (int i=0;i<buttonNo;i++){
   pinMode(buttonPin[i],INPUT);
@@ -204,7 +207,11 @@ void modeChange(){
     mode='n';
   }
 }
-
+void checkButton(){
+  for(int i=0;i<buttonNo;i++){
+    
+  }
+}
 void loop(){
   //checkUP();
   //test();
@@ -212,6 +219,7 @@ void loop(){
     writeNumbers(nums,numbers,lengths);
   else if (mode == 's'){
     createBlink(nums,numbers,lengths,2,500);
+    
     //delay(1000);
   }
 }
