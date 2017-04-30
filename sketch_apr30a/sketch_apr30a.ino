@@ -10,8 +10,10 @@ int clk=3;
 int strobe=4;
 
 int digits=4;
-int nums=2; //total number to be printed
+int nums=3; //total number to be printed
 boolean leadingZeros=false;
+
+unsigned long lastBlinkTime = 0;
 
 void setup(){
   Serial.begin(9600);
@@ -125,6 +127,45 @@ void writeNumbers(int num[],int len[]){
   }
   writeArray(arr);
 }
+void writeNumbers(int num[],int len[],int off){
+  int arr[digits];
+  int t1=0,t2=-1,t3;
+  for(int i=0;i<nums;i++){
+    Serial.println(num[i]);
+    t1=num[i];
+    t2+=len[i];
+    t3=findLength(t1);
+    if (i == off-1){
+      for(int j=0;j<len[i];j++){
+        arr[digits-1-(t2-j)]=10;
+      }      
+    }
+    else{
+      for (int j=0;j<t3-len[i];j++){
+        t1/=10;
+      }
+      for(int j=0;j<len[i];j++){
+        arr[digits-1-(t2-j)]=t1%10;
+        t1/=10;
+        if(j>=t3 && leadingZeros==false){
+          arr[digits-1-(t2-j)]=10;
+        }
+      }
+    }
+  }
+  writeArray(arr);
+}
+void createBlink(int num[],int len[],int off,int blinkDelay){
+  if ((millis() - lastBlinkTime) > blinkDelay) {
+    lastBlinkTime=millis();
+    if ((millis()/1000)%2 == 0){
+      writeNumbers(num,len,off);
+    }
+    else{
+      writeNumbers(num,len);
+    }
+  }
+}
 
 void checkUP(){
   writeNum(12345);
@@ -137,10 +178,11 @@ void checkUP(){
   delay(1000);
 }
 void loop(){
-  checkUP();
+  //checkUP();
   //test();
-  int arr[]={256,4};
-  int len[]={2,2};
-  writeNumbers(arr,len);
-  delay(1000);
+  int arr[]={26,4,5};
+  int len[]={2,1,1};
+//  writeNumbers(arr,len,2);
+  createBlink(arr,len,1,500);
+  //delay(1000);
 }
