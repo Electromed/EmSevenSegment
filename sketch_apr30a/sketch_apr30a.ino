@@ -1,61 +1,79 @@
-//Data and data1 are changed in older version.
+/*Error 
 
-#include <DHT.h>
-#define DHTTYPE DHT22
-int data=5;
+10 = blank
+
+*/
+
+
+int data=2;
 int clk=3;
 int strobe=4;
-int data1=2;
-DHT dht(data1, DHTTYPE);
-float hum,temp;
-int temp1,temp2,temp3,hum1,hum2,hum3;
-int tempsegment,humsegment;
-byte segment[]={63, 6, 91, 79, 102, 109, 125, 7, 127, 111};
+
+int digits=3;
+
 void setup()
 {
-  dht.begin();
   Serial.begin(9600);
+  Serial.print("Start");
   pinMode(strobe,OUTPUT);
   pinMode(data,OUTPUT);
   pinMode(clk,OUTPUT);
 }
-void loop()
-{
-  hum=0;
-  temp=0;
-  while (hum==0 || temp==0){
-    hum = dht.readHumidity();
-    temp = dht.readTemperature();
+
+void writeNum(unsigned long num){
+  int arr[digits];
+  int len=0,x=num;
+  while (x!=0){
+    len++;
+    x/=10;
   }
-  Serial.print("Humidity:");
-  Serial.print(hum);
-  Serial.println(" %   ");
-  Serial.print("Temperature:");
-  Serial.print(temp);
-  Serial.println(" C");
-  Serial.println("***************");
-  tempsegment=temp*10;
-  temp1=tempsegment%10;
-  tempsegment=tempsegment/10;
-  temp2=tempsegment%10;
-  tempsegment=tempsegment/10;
-  temp3=tempsegment%10;
-  humsegment=hum*10;
-  hum1=humsegment%10;
-  humsegment=humsegment/10;
-  hum2=humsegment%10;
-  humsegment=humsegment/10;
-  hum3=humsegment%10;
+  Serial.println(len);
+  if (len <= digits){
+    x=num;
+    for (int i=0;i<digits;i++){
+      if (i>=len){
+        arr[i]=10;
+      }
+      else{
+        arr[i]=x%10;
+        x/=10;
+      }
+    }
+    writeArray(arr);
+  }
+  else{
+    Serial.print(num);
+    Serial.println("num larger than digits");
+  }
+}
+void writeArray(int arr[]){
+  byte segment[]={63, 6, 91, 79, 102, 109, 125, 7, 127, 111,0};
   digitalWrite(strobe,LOW);
-  shiftOut(data,clk,MSBFIRST,0);
-  shiftOut(data,clk,MSBFIRST,0);
-  shiftOut(data,clk,MSBFIRST,segment[hum1]);
-  shiftOut(data,clk,MSBFIRST,segment[hum2]);
-  shiftOut(data,clk,MSBFIRST,segment[hum3]);
-  shiftOut(data,clk,MSBFIRST,segment[temp1]);
-  shiftOut(data,clk,MSBFIRST,segment[temp2]);
-  shiftOut(data,clk,MSBFIRST,segment[temp3]);
-  delay(200);
-  digitalWrite(strobe,HIGH);
-  delay(1000);
+  for (int i=0;i<digits;i++){
+    byte digit=segment[arr[i]];
+    shiftOut(data,clk,MSBFIRST,digit);
   }
+  digitalWrite(strobe,HIGH);
+}
+void test(){
+  int arr[digits];
+  for(int i=0;i<10;i++){
+    for(int j=0;j<digits;j++){
+      arr[j]=i;
+    }
+    writeArray(arr);
+    delay(1000);
+  }
+}
+
+void loop(){
+  //test();
+  writeNum(124);
+  delay(1000);
+  writeNum(645);
+  delay(1000);
+  writeNum(2);
+  delay(1000);
+  writeNum(90);
+  delay(1000);
+}
