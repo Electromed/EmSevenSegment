@@ -1,12 +1,12 @@
 ###########################################
-# Syntax Coloring Map For sevSeg4094
+# Syntax Coloring Map For EmSevenSegment
 ###########################################
 
 ###########################################
 # Datatypes (KEYWORD1)
 ###########################################
 
-sevSeg4094	KEYWORD1
+EmSevenSegment	KEYWORD1
 
 ###########################################
 # Methods and Functions (KEYWORD2)

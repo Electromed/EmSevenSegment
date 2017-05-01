@@ -1,11 +1,11 @@
 
 #include "Arduino.h"
-#include "sevSeg4094.h"
+#include "EmSevenSegment.h"
 
 /*****************************************************************/
 
-sevSeg4094::sevSeg4094(uint8_t digits,char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin){
-  // Default Constructor of sevSeg4094 class
+EmSevenSegment::EmSevenSegment(uint8_t digits,char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin){
+  // Default Constructor of EmSevenSegment class
   pinMode(dataPin,OUTPUT);
   pinMode(clockPin,OUTPUT);
   pinMode(strobePin,OUTPUT);
@@ -18,17 +18,17 @@ sevSeg4094::sevSeg4094(uint8_t digits,char type,uint8_t dataPin,uint8_t clockPin
   _type=type;
 }
 
-void sevSeg4094::setLeadingZeros(boolean leadingZeros){
+void EmSevenSegment::setLeadingZeros(boolean leadingZeros){
   _leadingZeros=leadingZeros;
 }
 
-void sevSeg4094::setPrint(boolean p){
+void EmSevenSegment::setPrint(boolean p){
   _print=p;
 }
 
 /*****************************************************************/
 
-uint8_t sevSeg4094::findLength(unsigned long n){
+uint8_t EmSevenSegment::findLength(unsigned long n){
   uint8_t l=0;
   while(n!=0){
     l++;
@@ -38,14 +38,14 @@ uint8_t sevSeg4094::findLength(unsigned long n){
 }
 
 
-void sevSeg4094::serialPrint(String s){
+void EmSevenSegment::serialPrint(String s){
   if (_print==true)
     Serial.println(s);
 }
 
 /*****************************************************************/
 
-void sevSeg4094::test(){
+void EmSevenSegment::test(){
   int arr[_digits];
   for(int i=0;i<10;i++){
     for(int j=0;j<_digits;j++){
@@ -58,7 +58,7 @@ void sevSeg4094::test(){
 
 /*****************************************************************/
 
-void sevSeg4094::writeNumbers(int nums,int num[],int len[]){
+void EmSevenSegment::writeNumbers(int nums,int num[],int len[]){
   int arr[_digits];
   int t1=0,t2=-1,t3;
   for(int i=0;i<nums;i++){
@@ -80,7 +80,7 @@ void sevSeg4094::writeNumbers(int nums,int num[],int len[]){
   writeArray(arr);
 }
 
-void sevSeg4094::writeNumbers(int nums,int num[],int len[],int off){
+void EmSevenSegment::writeNumbers(int nums,int num[],int len[],int off){
   int arr[_digits];
   int t1=0,t2=-1,t3;
   for(int i=0;i<nums;i++){
@@ -109,7 +109,7 @@ void sevSeg4094::writeNumbers(int nums,int num[],int len[],int off){
   writeArray(arr);
 }
 
-void sevSeg4094::blinkNumbers(int nums, int num[],int len[],int off,int blinkDelay){
+void EmSevenSegment::blinkNumbers(int nums, int num[],int len[],int off,int blinkDelay){
   if ((millis() - _lastBlinkTime) > blinkDelay) {
     _lastBlinkTime=millis();
     if ((millis()/1000)%2 == 0){
@@ -123,7 +123,7 @@ void sevSeg4094::blinkNumbers(int nums, int num[],int len[],int off,int blinkDel
 
 /*****************************************************************/
 
-void sevSeg4094::writeNum(unsigned long num){
+void EmSevenSegment::writeNum(unsigned long num){
   int arr[_digits];
   uint8_t len=0;
   //Serial.println(num);
@@ -152,7 +152,7 @@ void sevSeg4094::writeNum(unsigned long num){
   writeArray(arr);
 }
 
-void sevSeg4094::writeNum(unsigned long num,uint8_t c){
+void EmSevenSegment::writeNum(unsigned long num,uint8_t c){
   int arr[_digits];
   uint8_t len=0;
   //Serial.println(num);
@@ -182,7 +182,7 @@ void sevSeg4094::writeNum(unsigned long num,uint8_t c){
   writeArray(arr);
 }
 
-void sevSeg4094::blinkNum(unsigned long num,int off,int blinkDelay){
+void EmSevenSegment::blinkNum(unsigned long num,int off,int blinkDelay){
   if ((millis() - _lastBlinkTime) > blinkDelay) {
     _lastBlinkTime=millis();
     if ((millis()/1000)%2 == 0){
@@ -196,7 +196,7 @@ void sevSeg4094::blinkNum(unsigned long num,int off,int blinkDelay){
 
 /*****************************************************************/
 
-void sevSeg4094::writeArray(int arr[]){
+void EmSevenSegment::writeArray(int arr[]){
   byte segment[]={63, 6, 91, 79, 102, 109, 125, 7, 127, 111,0};
   digitalWrite(_strobePin,LOW);
   for (int i=0;i<_digits;i++){
@@ -211,7 +211,7 @@ void sevSeg4094::writeArray(int arr[]){
   digitalWrite(_strobePin,HIGH);
 }
 
-void sevSeg4094::writeHex(byte x){
+void EmSevenSegment::writeHex(byte x){
     shiftOut(x);  
 }
 

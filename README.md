@@ -1,9 +1,10 @@
-# Seven Segment Display using 4094 shift register library for Arduino
+# Arduino Library for 7-Segment Display using 4094 shift register
 
 This is a library to control 7-segment display using 4094 8-bit shift register.
 
 # Features!
   - Supports upto 255 digits.
+  - Support for both common anode and common cathode displays
   - Directly print multiple integer values
   - Print MSB or LSB (depending on user's choice) in case of number exceeding display.
   - Print numbers using arrays

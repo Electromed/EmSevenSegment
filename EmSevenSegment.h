@@ -1,13 +1,13 @@
 
-#ifndef sevSeg4094_h
-#define sevSeg4094_h
+#ifndef EmSevenSegment_h
+#define EmSevenSegment_h
 
 #include "Arduino.h"
 
-class sevSeg4094{
+class EmSevenSegment{
 
   public :
-    sevSeg4094(uint8_t digits,char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin);
+    EmSevenSegment(uint8_t digits,char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin);
     void setLeadingZeros(boolean leadingZeros);
     void writeNumbers(int nums,int num[],int len[]);
     void writeNumbers(int nums,int num[],int len[],int off);
