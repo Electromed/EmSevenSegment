@@ -20,3 +20,4 @@ test	KEYWORD2
 blinkNum	KEYWORD2
 writeArray	KEYWORD2
 setPrint	KEYWORD2
+writeHex	KEYWORD2

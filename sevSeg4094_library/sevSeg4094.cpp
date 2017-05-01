@@ -2,7 +2,10 @@
 #include "Arduino.h"
 #include "sevSeg4094.h"
 
-sevSeg4094::sevSeg4094(uint8_t digits,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin){
+/*****************************************************************/
+
+sevSeg4094::sevSeg4094(uint8_t digits,char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin){
+  // Default Constructor of sevSeg4094 class
   pinMode(dataPin,OUTPUT);
   pinMode(clockPin,OUTPUT);
   pinMode(strobePin,OUTPUT);
@@ -11,8 +14,19 @@ sevSeg4094::sevSeg4094(uint8_t digits,uint8_t dataPin,uint8_t clockPin,uint8_t s
   _clockPin=clockPin;
   _strobePin=strobePin;
   _leadingZeros=false;
-  _p=false;
+  _print=false;
+  _type=type;
 }
+
+void sevSeg4094::setLeadingZeros(boolean leadingZeros){
+  _leadingZeros=leadingZeros;
+}
+
+void sevSeg4094::setPrint(boolean p){
+  _print=p;
+}
+
+/*****************************************************************/
 
 uint8_t sevSeg4094::findLength(unsigned long n){
   uint8_t l=0;
@@ -23,19 +37,13 @@ uint8_t sevSeg4094::findLength(unsigned long n){
   return l;
 }
 
-void sevSeg4094::setLeadingZeros(boolean leadingZeros){
-  _leadingZeros=leadingZeros;
+
+void sevSeg4094::serialPrint(String s){
+  if (_print==true)
+    Serial.println(s);
 }
 
-void sevSeg4094::writeArray(int arr[]){
-  byte segment[]={63, 6, 91, 79, 102, 109, 125, 7, 127, 111,0};
-  digitalWrite(_strobePin,LOW);
-  for (int i=0;i<_digits;i++){
-    byte digit=segment[arr[i]];
-    shiftOut(_dataPin,_clockPin,MSBFIRST,digit);
-  }
-  digitalWrite(_strobePin,HIGH);
-}
+/*****************************************************************/
 
 void sevSeg4094::test(){
   int arr[_digits];
@@ -47,6 +55,8 @@ void sevSeg4094::test(){
     delay(100);
   }
 }
+
+/*****************************************************************/
 
 void sevSeg4094::writeNumbers(int nums,int num[],int len[]){
   int arr[_digits];
@@ -110,6 +120,9 @@ void sevSeg4094::blinkNumbers(int nums, int num[],int len[],int off,int blinkDel
     }
   }
 }
+
+/*****************************************************************/
+
 void sevSeg4094::writeNum(unsigned long num){
   int arr[_digits];
   uint8_t len=0;
@@ -138,6 +151,7 @@ void sevSeg4094::writeNum(unsigned long num){
   }
   writeArray(arr);
 }
+
 void sevSeg4094::writeNum(unsigned long num,uint8_t c){
   int arr[_digits];
   uint8_t len=0;
@@ -167,6 +181,7 @@ void sevSeg4094::writeNum(unsigned long num,uint8_t c){
   arr[c]=10;
   writeArray(arr);
 }
+
 void sevSeg4094::blinkNum(unsigned long num,int off,int blinkDelay){
   if ((millis() - _lastBlinkTime) > blinkDelay) {
     _lastBlinkTime=millis();
@@ -178,10 +193,26 @@ void sevSeg4094::blinkNum(unsigned long num,int off,int blinkDelay){
     }
   }
 }
-void sevSeg4094::setPrint(boolean p){
-  _p=p;
+
+/*****************************************************************/
+
+void sevSeg4094::writeArray(int arr[]){
+  byte segment[]={63, 6, 91, 79, 102, 109, 125, 7, 127, 111,0};
+  digitalWrite(_strobePin,LOW);
+  for (int i=0;i<_digits;i++){
+    byte digit=segment[arr[i]];
+    if (_type == 'c'){
+      writeHex(digit);
+    }
+    else {
+      writeHex(!digit);
+    }
+  }
+  digitalWrite(_strobePin,HIGH);
 }
-void sevSeg4094::serialPrint(String s){
-  if (_p==true)
-    Serial.println(s);
+
+void sevSeg4094::writeHex(byte x){
+    shiftOut(x);  
 }
+
+/*****************************************************************/

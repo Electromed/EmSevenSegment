@@ -7,7 +7,7 @@
 class sevSeg4094{
 
   public :
-    sevSeg4094(uint8_t digits,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin);
+    sevSeg4094(uint8_t digits,char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin);
     void setLeadingZeros(boolean leadingZeros);
     void writeNumbers(int nums,int num[],int len[]);
     void writeNumbers(int nums,int num[],int len[],int off);
@@ -16,6 +16,7 @@ class sevSeg4094{
     void writeNum(unsigned long num,uint8_t c);
     void blinkNum(unsigned long num,int off,int blinkDelay);
     void writeArray(int arr[]);
+    void WriteHex(byte x);
     void test();
     void setPrint(boolean p)
   
@@ -28,8 +29,9 @@ class sevSeg4094{
     uint8_t _dataPin;
     uint8_t _clockPin;
     uint8_t _strobePin;
+    char _type;
     boolean _leadingZeros;
-    boolean _p;
+    boolean _print;
 };
 
 #endif
