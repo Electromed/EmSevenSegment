@@ -22,7 +22,7 @@ void EmSevenSegment::setLeadingZeros(boolean leadingZeros){
   _leadingZeros=leadingZeros;
 }
 
-void EmSevenSegment::setPrint(boolean p){
+void EmSevenSegment::setSerialPrint(boolean p){
   _print=p;
 }
 
@@ -162,7 +162,7 @@ void EmSevenSegment::writeNum(unsigned long num,uint8_t c){
     x=num;
   }
   else{
-    seriaPrint("num larger than digits");
+    serialPrint("num larger than digits");
     for (int j=0;j<len-_digits;j++){
       x/=10;
     }
@@ -189,7 +189,7 @@ void EmSevenSegment::blinkNum(unsigned long num,int off,int blinkDelay){
       writeNum(num);
     }
     else{
-      writeNumbers(num,off-1);
+      writeNum(num,off-1);
     }
   }
 }
@@ -205,14 +205,20 @@ void EmSevenSegment::writeArray(int arr[]){
       writeHex(digit);
     }
     else {
-      writeHex(!digit);
+      writeHex(~digit,0);
     }
   }
   digitalWrite(_strobePin,HIGH);
 }
 
 void EmSevenSegment::writeHex(byte x){
-    shiftOut(x);  
+  digitalWrite(_strobePin,LOW);
+  shiftOut(_dataPin,_clockPin,MSBFIRST,x);
+  digitalWrite(_strobePin,HIGH);
+}
+
+void EmSevenSegment::writeHex(byte x,byte y){
+  shiftOut(_dataPin,_clockPin,MSBFIRST,x);
 }
 
 /*****************************************************************/

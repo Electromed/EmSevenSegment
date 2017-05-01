@@ -1,6 +1,6 @@
 #include <EmSevenSegment.h>
 
-EmSevenSegment sev(4,10,11,12);
+EmSevenSegment sev(4,'a',10,11,12);
 
 void setup(){
   Serial.begin(9600);
@@ -8,10 +8,7 @@ void setup(){
 
 //=============================================================//
 void loop(){
-  //sev.test();
-  int arr[]={34,2,5};
-  int len[]={2,1,1};
-  sev.createBlink(3,arr,len,2,500);
+  sev.test();
 }
 
 
