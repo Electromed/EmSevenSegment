@@ -16,14 +16,13 @@ class EmSevenSegment{
     void writeNum(unsigned long num,uint8_t c);
     void blinkNum(unsigned long num,int off,int blinkDelay);
     void writeArray(int arr[]);
+    void writeArray(int arr[],boolean x);
     void writeHex(byte x);
     void test();
-    void setSerialPrint(boolean p);
   
   private:
     unsigned long _lastBlinkTime;
     uint8_t findLength(unsigned long n);
-    void serialPrint(String s);
     void writeHex(byte x,byte y);
     
     uint8_t _digits;

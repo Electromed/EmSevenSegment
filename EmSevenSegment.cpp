@@ -22,10 +22,6 @@ void EmSevenSegment::setLeadingZeros(boolean leadingZeros){
   _leadingZeros=leadingZeros;
 }
 
-void EmSevenSegment::setSerialPrint(boolean p){
-  _print=p;
-}
-
 /*****************************************************************/
 
 uint8_t EmSevenSegment::findLength(unsigned long n){
@@ -37,12 +33,6 @@ uint8_t EmSevenSegment::findLength(unsigned long n){
   return l;
 }
 
-
-void EmSevenSegment::serialPrint(String s){
-  if (_print==true)
-    Serial.println(s);
-}
-
 /*****************************************************************/
 
 void EmSevenSegment::test(){
@@ -51,7 +41,7 @@ void EmSevenSegment::test(){
     for(int j=0;j<_digits;j++){
       arr[j]=i;
     }
-    writeArray(arr);
+    writeArray(arr,true);
     delay(100);
   }
 }
@@ -62,7 +52,6 @@ void EmSevenSegment::writeNumbers(int nums,int num[],int len[]){
   int arr[_digits];
   int t1=0,t2=-1,t3;
   for(int i=0;i<nums;i++){
-    Serial.println(num[i]);
     t1=num[i];
     t2+=len[i];
     t3=findLength(t1);
@@ -77,14 +66,13 @@ void EmSevenSegment::writeNumbers(int nums,int num[],int len[]){
       }
     }    
   }
-  writeArray(arr);
+  writeArray(arr,true);
 }
 
 void EmSevenSegment::writeNumbers(int nums,int num[],int len[],int off){
   int arr[_digits];
   int t1=0,t2=-1,t3;
   for(int i=0;i<nums;i++){
-    //Serial.println(num[i]);
     t1=num[i];
     t2+=len[i];
     t3=findLength(t1);
@@ -106,7 +94,7 @@ void EmSevenSegment::writeNumbers(int nums,int num[],int len[],int off){
       }
     }
   }
-  writeArray(arr);
+  writeArray(arr,true);
 }
 
 void EmSevenSegment::blinkNumbers(int nums, int num[],int len[],int off,int blinkDelay){
@@ -126,60 +114,62 @@ void EmSevenSegment::blinkNumbers(int nums, int num[],int len[],int off,int blin
 void EmSevenSegment::writeNum(unsigned long num){
   int arr[_digits];
   uint8_t len=0;
-  //Serial.println(num);
   int x=num;
   len=findLength(num);
   if (len <= _digits){
     x=num;
   }
   else{
-    serialPrint("num larger than digits");
     for (int j=0;j<len-_digits;j++){
       x/=10;
     }
   }
   for (int i=0;i<_digits;i++){
     if (i>=len){
-      arr[i]=10;
-    }
-    else{
-      if (_leadingZeros==false){
-        arr[i]=x%10;
-        x/=10;
+      if (_leadingZeros == false){
+        arr[i]=10;
+      }
+      else{
+        arr[i]=0;
       }
     }
+    else{
+      arr[i]=x%10;
+      x/=10;
+    }
   }
-  writeArray(arr);
+  writeArray(arr,true);
 }
 
 void EmSevenSegment::writeNum(unsigned long num,uint8_t c){
   int arr[_digits];
   uint8_t len=0;
-  //Serial.println(num);
   int x=num;
   len=findLength(num);
   if (len <= _digits){
     x=num;
   }
   else{
-    serialPrint("num larger than digits");
     for (int j=0;j<len-_digits;j++){
       x/=10;
     }
   }
   for (int i=0;i<_digits;i++){
     if (i>=len){
-      arr[i]=10;
+      if (_leadingZeros == false){
+        arr[i]=10;
+      }
+      else{
+        arr[i]=0;
+      }
     }
     else{
-      if (_leadingZeros==false){
-        arr[i]=x%10;
-        x/=10;
-      }
+      arr[i]=x%10;
+      x/=10;
     }
   }
   arr[c]=10;
-  writeArray(arr);
+  writeArray(arr,true);
 }
 
 void EmSevenSegment::blinkNum(unsigned long num,int off,int blinkDelay){
@@ -196,13 +186,29 @@ void EmSevenSegment::blinkNum(unsigned long num,int off,int blinkDelay){
 
 /*****************************************************************/
 
+void EmSevenSegment::writeArray(int arr[],boolean x){
+  byte segment[]={63, 6, 91, 79, 102, 109, 125, 7, 127, 111,0};
+  digitalWrite(_strobePin,LOW);
+  for (int i=0;i<_digits ;i++){
+    byte digit=segment[arr[i]];
+    if (_type == 'c'){
+      writeHex(digit,0);
+    }
+    else {
+      writeHex(~digit,0);
+    }
+  }
+  digitalWrite(_strobePin,HIGH);
+}
+
 void EmSevenSegment::writeArray(int arr[]){
   byte segment[]={63, 6, 91, 79, 102, 109, 125, 7, 127, 111,0};
   digitalWrite(_strobePin,LOW);
+  int len = sizeof(arr)/sizeof(arr[0]);
   for (int i=0;i<_digits;i++){
-    byte digit=segment[arr[i]];
+    byte digit=segment[arr[_digits-1-i]];
     if (_type == 'c'){
-      writeHex(digit);
+      writeHex(digit,0);
     }
     else {
       writeHex(~digit,0);
