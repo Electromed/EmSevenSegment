@@ -15,8 +15,6 @@ class EmSevenSegment{
     void writeNum(unsigned long num);
     void writeNum(unsigned long num,uint8_t c);
     void blinkNum(unsigned long num,int off,int blinkDelay);
-    void writeArray(int arr[]);
-    void writeArray(int arr[],boolean x);
     void writeHex(byte x);
     void test();
   
@@ -24,6 +22,7 @@ class EmSevenSegment{
     unsigned long _lastBlinkTime;
     uint8_t findLength(unsigned long n);
     void writeHex(byte x,byte y);
+    void writeArray(int arr[]);
     
     uint8_t _digits;
     uint8_t _dataPin;

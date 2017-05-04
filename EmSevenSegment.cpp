@@ -1,6 +1,7 @@
 
 #include "Arduino.h"
 #include "EmSevenSegment.h"
+#include "CharacterEncoding.h"
 
 /*****************************************************************/
 
@@ -41,7 +42,7 @@ void EmSevenSegment::test(){
     for(int j=0;j<_digits;j++){
       arr[j]=i;
     }
-    writeArray(arr,true);
+    writeArray(arr);
     delay(100);
   }
 }
@@ -66,7 +67,7 @@ void EmSevenSegment::writeNumbers(int nums,int num[],int len[]){
       }
     }    
   }
-  writeArray(arr,true);
+  writeArray(arr);
 }
 
 void EmSevenSegment::writeNumbers(int nums,int num[],int len[],int off){
@@ -94,7 +95,7 @@ void EmSevenSegment::writeNumbers(int nums,int num[],int len[],int off){
       }
     }
   }
-  writeArray(arr,true);
+  writeArray(arr);
 }
 
 void EmSevenSegment::blinkNumbers(int nums, int num[],int len[],int off,int blinkDelay){
@@ -138,7 +139,7 @@ void EmSevenSegment::writeNum(unsigned long num){
       x/=10;
     }
   }
-  writeArray(arr,true);
+  writeArray(arr);
 }
 
 void EmSevenSegment::writeNum(unsigned long num,uint8_t c){
@@ -169,7 +170,7 @@ void EmSevenSegment::writeNum(unsigned long num,uint8_t c){
     }
   }
   arr[c]=10;
-  writeArray(arr,true);
+  writeArray(arr);
 }
 
 void EmSevenSegment::blinkNum(unsigned long num,int off,int blinkDelay){
@@ -186,11 +187,13 @@ void EmSevenSegment::blinkNum(unsigned long num,int off,int blinkDelay){
 
 /*****************************************************************/
 
-void EmSevenSegment::writeArray(int arr[],boolean x){
+void EmSevenSegment::writeArray(int arr[]){
+  //For right align, called via internal functions
   byte segment[]={63, 6, 91, 79, 102, 109, 125, 7, 127, 111,0};
   digitalWrite(_strobePin,LOW);
   for (int i=0;i<_digits ;i++){
-    byte digit=segment[arr[i]];
+    //byte digit=segment[arr[i]];
+    byte digit = NUMBERS[arr[i]];
     if (_type == 'c'){
       writeHex(digit,0);
     }
@@ -201,12 +204,12 @@ void EmSevenSegment::writeArray(int arr[],boolean x){
   digitalWrite(_strobePin,HIGH);
 }
 
-void EmSevenSegment::writeArray(int arr[]){
-  byte segment[]={63, 6, 91, 79, 102, 109, 125, 7, 127, 111,0};
+/*void EmSevenSegment::writeArray(int arr[],boolean x){
+  //For left align
   digitalWrite(_strobePin,LOW);
   int len = sizeof(arr)/sizeof(arr[0]);
   for (int i=0;i<_digits;i++){
-    byte digit=segment[arr[_digits-1-i]];
+    byte digit=NUMBERS[arr[_digits-1-i]];
     if (_type == 'c'){
       writeHex(digit,0);
     }
@@ -215,16 +218,16 @@ void EmSevenSegment::writeArray(int arr[]){
     }
   }
   digitalWrite(_strobePin,HIGH);
-}
+}*/
 
 void EmSevenSegment::writeHex(byte x){
   digitalWrite(_strobePin,LOW);
-  shiftOut(_dataPin,_clockPin,MSBFIRST,x);
+  shiftOut(_dataPin,_clockPin,LSBFIRST,x);
   digitalWrite(_strobePin,HIGH);
 }
 
 void EmSevenSegment::writeHex(byte x,byte y){
-  shiftOut(_dataPin,_clockPin,MSBFIRST,x);
+  shiftOut(_dataPin,_clockPin,LSBFIRST,x);
 }
 
 /*****************************************************************/
