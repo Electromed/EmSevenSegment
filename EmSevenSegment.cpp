@@ -50,7 +50,7 @@ void EmSevenSegment::test(){
 
 /*****************************************************************/
 
-void EmSevenSegment::writeNumbers(int nums,int num[],int len[]){
+void EmSevenSegment::writeArray(int nums,int num[],int len[]){
   int arr[_digits];
   int t1=0,t2=-1,t3;
   for(int i=0;i<nums;i++){
@@ -69,6 +69,36 @@ void EmSevenSegment::writeNumbers(int nums,int num[],int len[]){
     }    
   }
   writeDigits(arr);
+}
+
+void EmSevenSegment::writeArray(int nums,String num[],int len[]){
+  int t1=0,t2=0,t3;
+  String str = "";
+  for(int i=0;i<nums;i++){
+    String x=num[i];
+    int length = x.length();
+    if (length<len[i]){
+      x="";
+      for(int j=0;j<len[i]-length;j++){
+        x+=" ";
+      }
+      for(int j=0;j<len[i];j++){
+        x+=num[i].charAt(j);
+      }
+    }
+          Serial.println(x);
+
+    for(int j=0;j<len[i];j++){
+        char c;
+        c=x.charAt(j);
+        str+=c;
+    }
+   // t2+=len[i];    
+  }
+  String temp = str;
+  Serial.print("sex");
+    Serial.println(str);
+    print(str);
 }
 
 void EmSevenSegment::writeNumbers(int nums,int num[],int len[],int off){
@@ -96,6 +126,8 @@ void EmSevenSegment::writeNumbers(int nums,int num[],int len[],int off){
       }
     }
   }
+  for(int i=0;i<_digits;i++)
+    Serial.print(arr[i]);
   writeDigits(arr);
 }
 
@@ -106,7 +138,7 @@ void EmSevenSegment::blinkNumbers(int nums, int num[],int len[],int off,int blin
       writeNumbers(nums,num,len,off);
     }
     else{
-      writeNumbers(nums,num,len);
+      writeArray(nums,num,len);
     }
   }
 }
@@ -142,6 +174,37 @@ void EmSevenSegment::print(unsigned long num){
     }
   }
   writeDigits(arr);
+}
+
+void EmSevenSegment::print(unsigned long num,int digits){
+  //To print an integer
+  int arr[digits];
+  uint8_t len=0;
+  int x=num;
+  len=findLength(num);
+  if (len <= digits){
+    x=num;
+  }
+  else{
+    for (int j=0;j<len-digits;j++){
+      x/=10;
+    }
+  }
+  for (int i=0;i<digits;i++){
+    if (i>=len){
+      if (_leadingZeros == false){
+        arr[i]=10;
+      }
+      else{
+        arr[i]=0;
+      }
+    }
+    else{
+      arr[i]=x%10;
+      x/=10;
+    }
+  }
+  writeDigits(arr,digits);
 }
 
 void EmSevenSegment::print(char c){
@@ -255,6 +318,22 @@ void EmSevenSegment::writeDigits(int arr[]){
   //For right align, called via internal functions
   digitalWrite(_strobePin,LOW);
   for (int i=0;i<_digits ;i++){
+    //byte digit=segment[arr[i]];
+    byte digit = NUMBERS[arr[i]];
+    if (_type == 'c'){
+      writeHex(digit,0);
+    }
+    else {
+      writeHex(~digit,0);
+    }
+  }
+  digitalWrite(_strobePin,HIGH);
+}
+
+void EmSevenSegment::writeDigits(int arr[],int digits){
+  //For right align, called via internal functions
+  digitalWrite(_strobePin,LOW);
+  for (int i=0;i<digits;i++){
     //byte digit=segment[arr[i]];
     byte digit = NUMBERS[arr[i]];
     if (_type == 'c'){
