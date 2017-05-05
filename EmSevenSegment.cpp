@@ -43,7 +43,7 @@ void EmSevenSegment::test(){
     for(int j=0;j<_digits;j++){
       arr[j]=i;
     }
-    writeArray(arr);
+    writeDigits(arr);
     delay(100);
   }
 }
@@ -68,7 +68,7 @@ void EmSevenSegment::writeNumbers(int nums,int num[],int len[]){
       }
     }    
   }
-  writeArray(arr);
+  writeDigits(arr);
 }
 
 void EmSevenSegment::writeNumbers(int nums,int num[],int len[],int off){
@@ -96,7 +96,7 @@ void EmSevenSegment::writeNumbers(int nums,int num[],int len[],int off){
       }
     }
   }
-  writeArray(arr);
+  writeDigits(arr);
 }
 
 void EmSevenSegment::blinkNumbers(int nums, int num[],int len[],int off,int blinkDelay){
@@ -141,7 +141,31 @@ void EmSevenSegment::print(unsigned long num){
       x/=10;
     }
   }
-  writeArray(arr);
+  writeDigits(arr);
+}
+
+void EmSevenSegment::print(char c){
+  Serial.println(c);
+  if (c>='A' && c <='Z')
+    c=c-'A';
+  else if (c >='0' && c <= '9'){
+    c=c-'0'+27;
+  }
+  else if (c >= 'a' && c <= 'z'){
+    c=c-'a';
+  }
+  else if (c == 32){
+    c=26;
+  }
+  byte digit;
+  if (c<27){
+    digit = LETTERS[c];
+  }
+  else if (c >=27 && c <= 36){
+    digit = NUMBERS[c-27];
+  }
+  Serial.println(c);
+  writeHex(digit);    
 }
 
 void EmSevenSegment::print(String s){
@@ -177,9 +201,10 @@ void EmSevenSegment::print(String s){
       Serial.print(arr[i]);
     }
   }
-
   writeChar(arr);
 }
+
+/*****************************************************************/
 
 void EmSevenSegment::writeNum(unsigned long num,uint8_t c){
   int arr[_digits];
@@ -209,7 +234,7 @@ void EmSevenSegment::writeNum(unsigned long num,uint8_t c){
     }
   }
   arr[c]=10;
-  writeArray(arr);
+  writeDigits(arr);
 }
 
 void EmSevenSegment::blinkNum(unsigned long num,int off,int blinkDelay){
@@ -226,7 +251,7 @@ void EmSevenSegment::blinkNum(unsigned long num,int off,int blinkDelay){
 
 /*****************************************************************/
 
-void EmSevenSegment::writeArray(int arr[]){
+void EmSevenSegment::writeDigits(int arr[]){
   //For right align, called via internal functions
   digitalWrite(_strobePin,LOW);
   for (int i=0;i<_digits ;i++){
