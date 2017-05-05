@@ -12,7 +12,8 @@ class EmSevenSegment{
     void writeNumbers(int nums,int num[],int len[]);
     void writeNumbers(int nums,int num[],int len[],int off);
     void blinkNumbers(int nums, int num[],int len[],int off,int blinkDelay);
-    void writeNum(unsigned long num);
+    void print(unsigned long num);
+    void print(String s);
     void writeNum(unsigned long num,uint8_t c);
     void blinkNum(unsigned long num,int off,int blinkDelay);
     void writeHex(byte x);
@@ -23,6 +24,7 @@ class EmSevenSegment{
     uint8_t findLength(unsigned long n);
     void writeHex(byte x,byte y);
     void writeArray(int arr[]);
+    void writeChar(int arr[]);
     
     uint8_t _digits;
     uint8_t _dataPin;

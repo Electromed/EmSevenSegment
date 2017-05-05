@@ -17,6 +17,7 @@ EmSevenSegment::EmSevenSegment(uint8_t digits,char type,uint8_t dataPin,uint8_t 
   _leadingZeros=false;
   _print=false;
   _type=type;
+  Serial.begin(9600);
 }
 
 void EmSevenSegment::setLeadingZeros(boolean leadingZeros){
@@ -112,7 +113,8 @@ void EmSevenSegment::blinkNumbers(int nums, int num[],int len[],int off,int blin
 
 /*****************************************************************/
 
-void EmSevenSegment::writeNum(unsigned long num){
+void EmSevenSegment::print(unsigned long num){
+  //To print an integer
   int arr[_digits];
   uint8_t len=0;
   int x=num;
@@ -140,6 +142,43 @@ void EmSevenSegment::writeNum(unsigned long num){
     }
   }
   writeArray(arr);
+}
+
+void EmSevenSegment::print(String s){
+  //To print a String
+  int arr[_digits];
+  int temp[_digits];
+  uint8_t len=0;
+  len=s.length();
+  if (len <= _digits){ 
+  }
+  else{
+    // Take starting letters if space is less
+    s=s.substring(0,_digits);
+  }
+  for (int i=0;i<_digits;i++){
+    if (i>=len){
+      arr[i]=26; // 26 = blank
+    }
+    else{
+      char c=s.charAt(s.length()-1-i);
+      if (c>='A' && c <='Z')
+        c=c-'A';
+      else if (c >='0' && c <= '9'){
+        c=c-'0'+27;
+      }
+      else if (c >= 'a' && c <= 'z'){
+        c=c-'a';
+      }
+      else if (c == 32){
+        c=26;
+      }
+      arr[i]=c;
+      Serial.print(arr[i]);
+    }
+  }
+
+  writeChar(arr);
 }
 
 void EmSevenSegment::writeNum(unsigned long num,uint8_t c){
@@ -177,7 +216,7 @@ void EmSevenSegment::blinkNum(unsigned long num,int off,int blinkDelay){
   if ((millis() - _lastBlinkTime) > blinkDelay) {
     _lastBlinkTime=millis();
     if ((millis()/1000)%2 == 0){
-      writeNum(num);
+      print(num);
     }
     else{
       writeNum(num,off-1);
@@ -189,7 +228,6 @@ void EmSevenSegment::blinkNum(unsigned long num,int off,int blinkDelay){
 
 void EmSevenSegment::writeArray(int arr[]){
   //For right align, called via internal functions
-  byte segment[]={63, 6, 91, 79, 102, 109, 125, 7, 127, 111,0};
   digitalWrite(_strobePin,LOW);
   for (int i=0;i<_digits ;i++){
     //byte digit=segment[arr[i]];
@@ -201,6 +239,26 @@ void EmSevenSegment::writeArray(int arr[]){
       writeHex(~digit,0);
     }
   }
+  digitalWrite(_strobePin,HIGH);
+}
+
+void EmSevenSegment::writeChar(int arr[]){
+  //For right align, called via internal functions
+  digitalWrite(_strobePin,LOW);
+  for (int i=0;i<_digits ;i++){
+    //byte digit=segment[arr[i]];
+    byte digit = LETTERS[arr[i]];
+    if (arr[i] >=27 && arr[i] <=36)
+      digit=NUMBERS[arr[i]-27];
+    if (_type == 'c'){
+      writeHex(digit,0);
+    }
+    else {
+      writeHex(~digit,0);
+    }
+//    Serial.println(digit);
+  }
+//  Serial.println("sex");
   digitalWrite(_strobePin,HIGH);
 }
 

@@ -51,7 +51,8 @@ const byte LETTERS[] = {
 	 B01111110, // w
 	 B01101100, // x
 	 B01110110, // y
-	 B11011010 // z
+	 B11011010, // z
+	 B00000000 // Blank
 };
 
 const byte MINUS = B00000010;

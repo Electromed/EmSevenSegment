@@ -20,3 +20,4 @@ blinkNum	KEYWORD2
 writeArray	KEYWORD2
 writeHex	KEYWORD2
 writeNum	KEYWORD2
+writeChar	KEYWORD2
