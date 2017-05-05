@@ -32,7 +32,8 @@ class EmSevenSegment{
     void writeDigits(int arr[],int digits);
     void writeChar(int arr[]);
     void writeNum(long num,uint8_t c);
-    void writeNumbers(int nums,int num[],int len[],int off);
+    void printArray(int nums,int num[],int len[],int off);
+    void printArray(int nums,String num[],int len[],int off);
     
     uint8_t _digits;
     uint8_t _dataPin;
