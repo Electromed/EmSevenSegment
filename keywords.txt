@@ -13,11 +13,7 @@ EmSevenSegment	KEYWORD1
 ###########################################
 
 setLeadingZeros	KEYWORD2
-writeNumbers	KEYWORD2
-createBlink	KEYWORD2
 test	KEYWORD2
 blinkNum	KEYWORD2
-writeArray	KEYWORD2
+printArray	KEYWORD2
 writeHex	KEYWORD2
-writeNum	KEYWORD2
-writeChar	KEYWORD2
