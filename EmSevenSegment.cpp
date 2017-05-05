@@ -17,11 +17,16 @@ EmSevenSegment::EmSevenSegment(uint8_t digits,char type,uint8_t dataPin,uint8_t 
   _leadingZeros=false;
   _print=false;
   _type=type;
+  _align='r';
   Serial.begin(9600);
 }
 
 void EmSevenSegment::setLeadingZeros(boolean leadingZeros){
   _leadingZeros=leadingZeros;
+}
+
+void EmSevenSegment::setAlignment(char align){
+  _align = align;
 }
 
 /*****************************************************************/
@@ -176,7 +181,6 @@ void EmSevenSegment::print(int num,int digits){
 void EmSevenSegment::print(long num){
   //Print number using all displays  
   Serial.println("print(long num)");
-
   print(num,_digits);
 }
 
@@ -217,6 +221,32 @@ void EmSevenSegment::print(long num, int digits){
       x/=10;
     }
   }
+  for(int i=0;i<digits;i++){
+    Serial.print(arr[i]);
+    Serial.print(" ");
+  }
+  Serial.println();
+  int i=0;
+  if (_align == 'l'){
+    //Align left
+    for (i=0; i<digits; i++){
+      if (arr[digits-1-i] != 10 && arr[digits-1-i] != 0 ){
+        break;
+      }
+    }
+    i=digits-i;
+    for(int j=0;j<i+1;j++){
+      arr[digits-j]=arr[i-j];
+      arr[i-j]=10;
+    }
+  }
+  Serial.println();
+  for(int i=0;i<digits;i++){
+    Serial.print(arr[i]);
+    Serial.print(" ");
+  }
+  Serial.println();
+
   writeDigits(arr,digits);
 }
 
@@ -278,8 +308,30 @@ void EmSevenSegment::print(String s, int digits){
         c=26;
       }
       arr[i]=c;
-     // Serial.print(arr[i]);
     }
+  }
+  for(int i=0;i<digits;i++){
+    Serial.print(arr[i]);
+    Serial.print(" ");
+  }
+  int i=0;
+  if (_align == 'l' && s.length()!=digits){
+    //Align left
+    for (i=0; i<digits; i++){
+      if (arr[digits-1-i] != 26){
+        break;
+      }
+    }
+    i=digits-i;
+    for(int j=0;j<i+1;j++){
+      arr[digits-j]=arr[i-j];
+      arr[i-j]=26;
+    }
+  }
+  Serial.println();
+  for(int i=0;i<digits;i++){
+    Serial.print(arr[i]);
+    Serial.print(" ");
   }
   writeChar(arr);
 }
@@ -366,9 +418,7 @@ void EmSevenSegment::writeChar(int arr[]){
     else {
       printHex(~digit,0);
     }
-//    Serial.println(digit);
   }
-//  Serial.println("sex");
   digitalWrite(_strobePin,HIGH);
 }
 
