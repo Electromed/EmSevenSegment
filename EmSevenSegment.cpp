@@ -5,7 +5,7 @@
 
 /*****************************************************************/
 
-EmSevenSegment::EmSevenSegment(uint8_t digits,char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin){
+EmSevenSegment::EmSevenSegment(int digits,char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin){
   // Default Constructor of EmSevenSegment class
   pinMode(dataPin,OUTPUT);
   pinMode(clockPin,OUTPUT);

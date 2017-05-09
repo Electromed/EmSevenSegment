@@ -7,7 +7,7 @@
 class EmSevenSegment{
 
   public :
-    EmSevenSegment(uint8_t digits,char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin);
+    EmSevenSegment(int digits,char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin);
     void setLeadingZeros(boolean leadingZeros);
     void setAlignment(char align);
     void printArray(int nums,int num[],int len[]);
@@ -21,7 +21,6 @@ class EmSevenSegment{
     void print(int num,int digits);
     void print(String s);
     void print(String s,int digits);
-    void blinkNum(long num,int off,int blinkDelay);
     void printHex(byte x);
     void test();
   
@@ -36,6 +35,7 @@ class EmSevenSegment{
     void writeNum(long num,uint8_t c);
     void printArray(int nums,int num[],int len[],int off);
     void printArray(int nums,String num[],int len[],int off);
+    void blinkNum(long num,int off,int blinkDelay);
     
     uint8_t _digits;
     uint8_t _dataPin;

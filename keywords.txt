@@ -13,7 +13,9 @@ EmSevenSegment	KEYWORD1
 ###########################################
 
 setLeadingZeros	KEYWORD2
+setAlignment	KEYWORD2
 test	KEYWORD2
-blinkNum	KEYWORD2
 printArray	KEYWORD2
+blinkArray	KEYWORD2
 writeHex	KEYWORD2
+print	KEYWORD2
