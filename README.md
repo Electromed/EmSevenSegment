@@ -54,6 +54,7 @@ Hardware requirements may change due to larger current requirement of bigger siz
 * __print()__
   * disp.print(value)
   * disp.print(value, digits)
+  * disp.print(lengthOfArray,array,digitsForElement)
 
   `disp`: is a variable of type EmSevenSegment.
 
@@ -65,6 +66,12 @@ Hardware requirements may change due to larger current requirement of bigger siz
   default value is the total Bi;
   for text, valid characters are 0-9 a-z A-Z - space.
 
+  'lengthOfArray': number of elements in array to be printed
+
+  'array': array of elements to be printed
+
+  'digitsForElement': number of digits alloted for each element
+
 * __printHex()__
   * disp.print(value)
 
@@ -73,23 +80,8 @@ Hardware requirements may change due to larger current requirement of bigger siz
   `value`: is the hex value to save and show;
   must be in the form of 0xXX;
 
-* __printArray()__
-  * disp.printArray(lengthOfArray,array,digitsForElement)
-
-  `disp`: is a variable of type EmSevenSegment.
-
-  'lengthOfArray': number of elements in array to be printed
-
-  'array': array of elements to be printed
-
-  'digitsForElement': number of digits alloted for each element
-
-  Example of the blinking effect is as follows:
-
-  ![input](https://raw.githubusercontent.com/ssuhrid/arduino-seven-segment-using-4094-Library/master/extras/blinkDisplay.gif)
-
-* __blinkArray()__
-  * disp.blinkArray(lengthOfArray,array,digitsForElement,blinkingElement,blinkTime)
+* __blink()__
+  * disp.blink(lengthOfArray,array,digitsForElement,blinkingElement,blinkTime)
 
   `disp`: is a variable of type EmSevenSegment.
 
@@ -116,7 +108,6 @@ Hardware requirements may change due to larger current requirement of bigger siz
   `value`: L for left align;
   R for right align;
   default set to right;
-
   
 * __setLeadingZeros()__
   * disp.print(value)
@@ -129,6 +120,7 @@ Hardware requirements may change due to larger current requirement of bigger siz
 ## TODO
 
   Will update this section once issues are discovered.
+  Create print(int arr[])
 
 ## Contacts
 

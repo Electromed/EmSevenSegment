@@ -57,7 +57,7 @@ void EmSevenSegment::test(){
 
 /*****************************************************************/
 
-void EmSevenSegment::printArray(int nums,int num[],int len[]){
+void EmSevenSegment::print(int nums,int num[],int len[]){
   int arr[_digits];
   int t1=0,t2=-1,t3;
   for(int i=0;i<nums;i++){
@@ -107,19 +107,19 @@ void EmSevenSegment::printArray(int nums,int num[],int len[],int off){
   writeDigits(arr);
 }
 
-void EmSevenSegment::blinkArray(int nums, int num[],int len[],int off,int blinkDelay){
+void EmSevenSegment::blink(int nums, int num[],int len[],int off,int blinkDelay){
   if ((millis() - _lastBlinkTime) > blinkDelay) {
     _lastBlinkTime=millis();
     if ((millis()/1000)%2 == 0){
       printArray(nums,num,len,off);
     }
     else{
-      printArray(nums,num,len);
+      print(nums,num,len);
     }
   }
 }
 
-void EmSevenSegment::printArray(int nums,String num[],int len[]){
+void EmSevenSegment::print(int nums,String num[],int len[]){
   printArray(nums,num,len,nums+1);
 }
 
@@ -149,14 +149,14 @@ void EmSevenSegment::printArray(int nums,String num[],int len[],int off){
   print(str);
 }
 
-void EmSevenSegment::blinkArray(int nums, String num[],int len[],int off,int blinkDelay){
+void EmSevenSegment::blink(int nums, String num[],int len[],int off,int blinkDelay){
   if ((millis() - _lastBlinkTime) > blinkDelay) {
     _lastBlinkTime=millis();
     if ((millis()/1000)%2 == 0){
       printArray(nums,num,len,off);
     }
     else{
-      printArray(nums,num,len);
+      print(nums,num,len);
     }
   }
 }
