@@ -3,7 +3,7 @@
 This is a library to control 7-segment display using 4094 8-bit shift register.
 
 ## Features
-  - Concatenate upto 255 displays using just 3 pins on Arduino
+  - Concatenate upto 255 displays using just 3 pins of Arduino
   - Prints both numbers and alphabets
   - Supports both common anode and common cathode displays
   - Directly print multiple integer values
@@ -23,7 +23,7 @@ The following are a must:
 
 1. Download the library from github
 2. Extract and copy the folder into Documents > Arduino > Libraries
-3. Test using an example code from File > Examples > emSevenSegment > test
+3. Test using an example code from File > Examples > EmSevenSegment > test
 
 ## Basic circuit
 
@@ -41,6 +41,9 @@ Hardware requirements may change due to larger current requirement of bigger siz
   Creates EmSevenSegment object, initializes the library with the interface pins, and sets up with the display properties.
 
   `disp`: is a variable of type EmSevenSegment.
+
+  'type': C for common cathode;
+  A for common anode;
 
   `digits`: is the number of single 7-segment displays connected in series.
 
@@ -83,7 +86,7 @@ Hardware requirements may change due to larger current requirement of bigger siz
 
   Example of the blinking effect is as follows:
 
-  ![input](https://raw.githubusercontent.com/ssuhrid/arduino-seven-segment-using-4094-Library/master/extras/blinkDisplay.jpg)
+  ![input](https://raw.githubusercontent.com/ssuhrid/arduino-seven-segment-using-4094-Library/master/extras/blinkDisplay.gif)
 
 * __blinkArray()__
   * disp.blinkArray(lengthOfArray,array,digitsForElement,blinkingElement,blinkTime)
@@ -112,6 +115,7 @@ Hardware requirements may change due to larger current requirement of bigger siz
 
   `value`: L for left align;
   R for right align;
+  default set to right;
 
   
 * __setLeadingZeros()__
