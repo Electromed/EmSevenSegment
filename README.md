@@ -12,18 +12,18 @@ This is a library to control 7-segment display using 4094 8-bit shift register.
   - Choose between left/right alignment of text
   - Blink at specific location on display
 
+## Install
+
+1. Download the library from github
+2. Extract and copy the folder into Documents > Arduino > Libraries
+3. Test using an example code from File > Examples > EmSevenSegment > test
+
 ## Hardware required
 
 The following are a must:
   - Any arduino board
   - Shift register 4094
   - 7-segment led display.
-
-## Install
-
-1. Download the library from github
-2. Extract and copy the folder into Documents > Arduino > Libraries
-3. Test using an example code from File > Examples > EmSevenSegment > test
 
 ## Basic circuit
 
@@ -42,7 +42,7 @@ Hardware requirements may change due to larger current requirement of bigger siz
 
   `disp`: is a variable of type EmSevenSegment.
 
-  'type': C for common cathode;
+  `type`: C for common cathode;
   A for common anode;
 
   `digits`: is the number of single 7-segment displays connected in series.
@@ -66,11 +66,11 @@ Hardware requirements may change due to larger current requirement of bigger siz
   default value is the total Bi;
   for text, valid characters are 0-9 a-z A-Z - space.
 
-  'lengthOfArray': number of elements in array to be printed
+  `lengthOfArray`: number of elements in array to be printed
 
-  'array': array of elements to be printed
+  `array`: array of elements to be printed
 
-  'digitsForElement': number of digits alloted for each element
+  `digitsForElement`: number of digits alloted for each element
 
 * __printHex()__
   * disp.print(value)
@@ -85,15 +85,15 @@ Hardware requirements may change due to larger current requirement of bigger siz
 
   `disp`: is a variable of type EmSevenSegment.
 
-  'lengthOfArray': number of elements in array to be printed
+  `lengthOfArray`: number of elements in array to be printed
 
-  'array': array of elements to be printed
+  `array`: array of elements to be printed
 
-  'digitsForElement': number of digits alloted for each element
+  `digitsForElement`: number of digits alloted for each element
 
   `blinkingElement`: index of element to be blinked.
 
-  'blinkTime': blinking time of the element
+  `blinkTime`: blinking time of the element
 
 * __test()__
   * disp.test()
