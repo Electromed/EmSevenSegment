@@ -381,6 +381,23 @@ void EmSevenSegment::blinkNum(long num,int off,int blinkDelay){
 
 /*****************************************************************/
 
+void EmSevenSegment::print(){
+  clear();
+}
+void EmSevenSegment::clear(int digits){
+  int arr[digits];
+  for (int i = 0; i<digits; i++){
+    arr[i]=10;
+  }
+  writeDigits(arr,digits);
+}
+
+void EmSevenSegment::clear(){
+  clear(_digits);
+}
+
+/*****************************************************************/
+
 void EmSevenSegment::writeDigits(int arr[]){
   //For right align, called via internal functions
   writeDigits(arr,_digits);

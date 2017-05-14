@@ -23,7 +23,9 @@ class EmSevenSegment{
     void print(String s,int digits);
     void printHex(byte x);
     void test();
-  
+    void clear();
+    void clear(int digits);
+
   private:
     unsigned long _lastBlinkTime;
     uint8_t findLength(long n);

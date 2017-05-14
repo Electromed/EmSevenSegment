@@ -19,3 +19,4 @@ printArray	KEYWORD2
 blinkArray	KEYWORD2
 writeHex	KEYWORD2
 print	KEYWORD2
+clear	KEYWORD2
