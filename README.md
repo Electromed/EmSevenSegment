@@ -1,6 +1,7 @@
 # EmSevenSegment
 
 This is a library to control 7-segment display using 4094 8-bit shift register.
+It has been tested on HEF4094B, CD4094B,  CD4094BMS, & MC74HCT4094A 
 
 ## Features
   - Concatenate upto 255 displays using just 3 pins of Arduino
@@ -11,6 +12,7 @@ This is a library to control 7-segment display using 4094 8-bit shift register.
   - Add/remove leading zeros for numbers
   - Choose between left/right alignment of text
   - Blink at specific location on display
+  - Clear the display
 
 ## Install
 
@@ -46,9 +48,9 @@ Hardware requirements may change due to larger current requirement of bigger siz
   `type`: C for common cathode;
   A for common anode;
 
-  `digits`: is the number of single 7-segment displays connected in series.
+  `digits`: is the number of single 7-segment displays connected in series. default value is 1.
 
-  `dataPin`, `clockPin`, `strobePin`: are the number of the Arduino digital pins connected to the shift registers data, clock and strobe pins;
+  `dataPin`, `clockPin`, `strobePin`: are the number of the Arduino digital pins connected to the shift registers data, clock and strobe pins.
   
 ### Functions
 
@@ -57,6 +59,8 @@ Hardware requirements may change due to larger current requirement of bigger siz
   * disp.print(value, digits)
   * disp.print(lengthOfArray,array,digitsForElement)
 
+  To print a value on the 7-segment display
+
   `disp`: is a variable of type EmSevenSegment.
 
   `value`: is the value to save and show;
@@ -64,59 +68,57 @@ Hardware requirements may change due to larger current requirement of bigger siz
   for text, valid characters are 0-9 a-z A-Z - space.
 
   `digits`: is the number of digits alloted to print the value;
-  default value is the total number displays connected;
+  default value is the total number displays connected.
 
-  `lengthOfArray`: number of elements in array to be printed
+  `lengthOfArray`: number of elements in array to be printed.
 
-  `array`: array of elements to be printed
+  `array`: array of elements to be printed.
 
-  `digitsForElement`: number of digits alloted for each element
+  `digitsForElement`: number of digits alloted for each element.
 
 * __clear()__
   * disp.clear()
   * disp.clear(digits)
 
+  To clear the display.
+
   `disp`: is a variable of type EmSevenSegment.
 
   `digits`: is the number of digits to be cleared;
-  default value is the total number of displays connected;
+  default value is the total number of displays connected.
 
 * __blink()__
   * disp.blink(lengthOfArray,array,digitsForElement,blinkingElement,blinkTime)
 
+  To blink at a particular location in the display.
+
   `disp`: is a variable of type EmSevenSegment.
 
-  `lengthOfArray`: number of elements in array to be printed
+  `lengthOfArray`: number of elements in array to be printed.
 
-  `array`: array of elements to be printed
+  `array`: array of elements to be printed.
 
-  `digitsForElement`: number of digits alloted for each element
+  `digitsForElement`: number of digits alloted for each element.
 
   `blinkingElement`: index of element to be blinked.
 
-  `blinkTime`: blinking time of the element
+  `blinkTime`: blinking time of the element.
 
-* __setAlignment()__
-  * disp.print(value)
+* __set()__
+  * disp.set(param,value)
+
+  To set the parameters of the display.
 
   `disp`: is a variable of type EmSevenSegment.
 
-  `value`: L for left align;
-  R for right align;
-  default set to right;
+  `param`: "ALIGN" to set alignment; "ZEROS" to show/hide leading zeros.
   
-* __setLeadingZeros()__
-  * disp.print(value)
-  
-  `disp`: is a variable of type EmSevenSegment.
-
-  `value`: true to print leading zeros;
-  false to not print leading zeros;
-  
+  `value`: for alignment: L for left align; R for right align; default set to right;
+  for leading zeros: Y to show leading zeros; N to hide leading zeros; default set to N;
+    
 ## TODO
 
   Will update this section once issues are discovered.
-  Create print(int arr[])
 
 ## Contacts
 

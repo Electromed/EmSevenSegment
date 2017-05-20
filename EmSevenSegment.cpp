@@ -23,8 +23,8 @@ EmSevenSegment::EmSevenSegment(int digits,char type,uint8_t dataPin,uint8_t cloc
   _print=false;
   _type=type;
   _align='R';
-  Serial.begin(9600);
-  Serial.println("begin");
+//  Serial.begin(9600);
+//  Serial.println("begin");
 }
 
 /*****************************************************************/
@@ -42,9 +42,6 @@ void EmSevenSegment::set(String s,char x){
     }
   }
   else if (s.compareTo("ZEROS") == 0){
-  Serial.println("s");
-  Serial.println(s);
-  Serial.println("s");
     if (x == 'Y' || x == 'y'){
       _leadingZeros = true;
     }
@@ -232,20 +229,9 @@ void EmSevenSegment::print(long num, int digits){
   int i=0;
   if (_align == 'L'){
     //Align left
-    /*for (ix=0; ix<digits; ix++){
-      //if (arr[digits-1-i] != 10 && arr[digits-1-i] != 0 ){
-      if (arr[ix] != 10 && arr[ix] != 0 ){
-        Serial.println("sex");
-        break;
-      }
-    }*/
     i=digits-len;
-    Serial.println('i');
-    Serial.println(i);
     if (i != 0){
       for(int j=0;j<i;j++){
-    //  arr[digits-j]=arr[i-j];
-    //  arr[i-j]=10;
         for(int k=0;k<digits-1;k++){
           arr[digits-k-1]=arr[digits-k-2];
         }
