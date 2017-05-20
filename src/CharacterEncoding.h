@@ -1,8 +1,8 @@
 /*
-ShiftDisplay
-by MiguelPynto
-Arduino library for driving multiple-digit 7-segment LED displays using 74HC595 shift registers
-https://miguelpynto.github.io/ShiftDisplay/
+EmSevenSegment
+by Suhrid Srivastava
+Arduino library to drive multiple-digit 7-segment LED displays using HEF4094B, CD4094B,  CD4094BMS, MC74HCT4094A and other 4094 shift registers.
+https://github.com/EmSevenSegment/
 */
 
 #ifndef CharacterEncoding_h
