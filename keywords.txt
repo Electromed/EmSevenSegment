@@ -12,11 +12,8 @@ EmSevenSegment	KEYWORD1
 # Methods and Functions (KEYWORD2)
 ###########################################
 
-setLeadingZeros	KEYWORD2
-setAlignment	KEYWORD2
-test	KEYWORD2
-printArray	KEYWORD2
-blinkArray	KEYWORD2
-writeHex	KEYWORD2
+set	KEYWORD2
+blink	KEYWORD2
+printHex	KEYWORD2
 print	KEYWORD2
 clear	KEYWORD2

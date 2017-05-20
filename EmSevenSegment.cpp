@@ -5,6 +5,11 @@
 
 /*****************************************************************/
 
+EmSevenSegment::EmSevenSegment(char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin){
+  // Default Constructor of EmSevenSegment class
+  EmSevenSegment(1,type,dataPin,clockPin,strobePin);
+}
+
 EmSevenSegment::EmSevenSegment(int digits,char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin){
   // Default Constructor of EmSevenSegment class
   pinMode(dataPin,OUTPUT);
@@ -19,17 +24,35 @@ EmSevenSegment::EmSevenSegment(int digits,char type,uint8_t dataPin,uint8_t cloc
   _type=type;
   _align='R';
   Serial.begin(9600);
-}
-
-void EmSevenSegment::setLeadingZeros(boolean leadingZeros){
-  _leadingZeros=leadingZeros;
-}
-
-void EmSevenSegment::setAlignment(char align){
-  _align = align;
+  Serial.println("begin");
 }
 
 /*****************************************************************/
+
+void EmSevenSegment::set(String s,char x){
+  for(int i = 0; i < s.length(); i++){
+     s[i] = toupper(s[i]);
+  }
+  if (s.compareTo("ALIGN") == 0 ){
+    if (x == 'L' || x == 'l'){
+      _align = 'L';
+    }
+    else if (x == 'R' || x == 'r'){
+      _align = 'R';
+    }
+  }
+  else if (s.compareTo("ZEROS") == 0){
+  Serial.println("s");
+  Serial.println(s);
+  Serial.println("s");
+    if (x == 'Y' || x == 'y'){
+      _leadingZeros = true;
+    }
+    else if (x == 'N' || x == 'n'){
+      _leadingZeros = false;
+    }
+  }
+}
 
 uint8_t EmSevenSegment::findLength(long n){
   //find length of a number
@@ -39,20 +62,6 @@ uint8_t EmSevenSegment::findLength(long n){
     n/=10;
   }
   return l;
-}
-
-/*****************************************************************/
-
-void EmSevenSegment::test(){
-  //countdown 0000 to 9999
-  int arr[_digits];
-  for(int i=0;i<10;i++){
-    for(int j=0;j<_digits;j++){
-      arr[j]=i;
-    }
-    writeDigits(arr);
-    delay(100);
-  }
 }
 
 /*****************************************************************/
@@ -184,8 +193,10 @@ void EmSevenSegment::print(long num){
 
 void EmSevenSegment::print(long num, int digits){
   //To print an long integer
-    Serial.println("print(long num,int digits)");
-
+  if (digits == 0){
+    digits=findLength(num);
+  }
+  Serial.println("print(long num,int digits)");
   int arr[digits];
   int x=num;
   int len=findLength(num);
@@ -199,7 +210,6 @@ void EmSevenSegment::print(long num, int digits){
     }
   }
   len=findLength(x);
-  Serial.println(x);
   for (int i=0;i<digits;i++){
     //put each digit in an array
     if (i>=len){
@@ -219,23 +229,28 @@ void EmSevenSegment::print(long num, int digits){
       x/=10;
     }
   }
-  for(int i=0;i<digits;i++){
-    Serial.print(arr[i]);
-    Serial.print(" ");
-  }
-  Serial.println();
   int i=0;
   if (_align == 'L'){
     //Align left
-    for (i=0; i<digits; i++){
-      if (arr[digits-1-i] != 10 && arr[digits-1-i] != 0 ){
+    /*for (ix=0; ix<digits; ix++){
+      //if (arr[digits-1-i] != 10 && arr[digits-1-i] != 0 ){
+      if (arr[ix] != 10 && arr[ix] != 0 ){
+        Serial.println("sex");
         break;
       }
-    }
-    i=digits-i;
-    for(int j=0;j<i+1;j++){
-      arr[digits-j]=arr[i-j];
-      arr[i-j]=10;
+    }*/
+    i=digits-len;
+    Serial.println('i');
+    Serial.println(i);
+    if (i != 0){
+      for(int j=0;j<i;j++){
+    //  arr[digits-j]=arr[i-j];
+    //  arr[i-j]=10;
+        for(int k=0;k<digits-1;k++){
+          arr[digits-k-1]=arr[digits-k-2];
+        }
+        arr[0]=10;
+      }
     }
   }
   Serial.println();
@@ -278,6 +293,9 @@ void EmSevenSegment::print(String s){
 
 void EmSevenSegment::print(String s, int digits){
   //To print a String
+  if (digits == 0){
+    digits = s.length();
+  }
   int arr[digits];
   int temp[digits];
   uint8_t len=0;

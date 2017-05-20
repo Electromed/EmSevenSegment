@@ -35,7 +35,8 @@ Hardware requirements may change due to larger current requirement of bigger siz
 
 ### Constructor
 
-* __Shift Display()__
+* __EmSevenSegment()__
+  * EmSevenSegment disp(char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin)
   * EmSevenSegment disp(int digits,char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin)
     
   Creates EmSevenSegment object, initializes the library with the interface pins, and sets up with the display properties.
@@ -63,8 +64,7 @@ Hardware requirements may change due to larger current requirement of bigger siz
   for text, valid characters are 0-9 a-z A-Z - space.
 
   `digits`: is the number of digits alloted to print the value;
-  default value is the total Bi;
-  for text, valid characters are 0-9 a-z A-Z - space.
+  default value is the total number displays connected;
 
   `lengthOfArray`: number of elements in array to be printed
 
@@ -72,13 +72,14 @@ Hardware requirements may change due to larger current requirement of bigger siz
 
   `digitsForElement`: number of digits alloted for each element
 
-* __printHex()__
-  * disp.print(value)
+* __clear()__
+  * disp.clear()
+  * disp.clear(digits)
 
   `disp`: is a variable of type EmSevenSegment.
 
-  `value`: is the hex value to save and show;
-  must be in the form of 0xXX;
+  `digits`: is the number of digits to be cleared;
+  default value is the total number of displays connected;
 
 * __blink()__
   * disp.blink(lengthOfArray,array,digitsForElement,blinkingElement,blinkTime)
@@ -94,11 +95,6 @@ Hardware requirements may change due to larger current requirement of bigger siz
   `blinkingElement`: index of element to be blinked.
 
   `blinkTime`: blinking time of the element
-
-* __test()__
-  * disp.test()
-
-  `disp`: is a variable of type EmSevenSegment.
 
 * __setAlignment()__
   * disp.print(value)
@@ -125,4 +121,3 @@ Hardware requirements may change due to larger current requirement of bigger siz
 ## Contacts
 
 suhrid.srivastava@gmail.com
-
