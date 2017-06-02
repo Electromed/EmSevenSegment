@@ -24,6 +24,8 @@ class EmSevenSegment{
     void print(int num,int digits);
     void print(String s);
     void print(String s,int digits);
+    void print(int nums,int num[],int len[]);
+    void print(int nums,String num[],int len[]);
     void blink(int nums, int num[],int len[],int off,int blinkDelay);
     void blink(int nums, String num[],int len[],int off,int blinkDelay);
     void clear();
@@ -38,8 +40,6 @@ class EmSevenSegment{
     void writeDigits(int arr[]);
     void writeChar(int arr[]);
     void writeNum(long num,uint8_t c);
-    void print(int nums,int num[],int len[]);
-    void print(int nums,String num[],int len[]);
     void printArray(int nums,int num[],int len[],int off);
     void printArray(int nums,String num[],int len[],int off);
     void blinkNum(long num,int off,int blinkDelay);
