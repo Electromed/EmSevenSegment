@@ -111,10 +111,11 @@ Hardware requirements may change due to larger current requirement of bigger siz
 
   `disp`: is a variable of type EmSevenSegment.
 
-  `param`: "ALIGN" to set alignment; "ZEROS" to show/hide leading zeros.
+  `param`: "ALIGN" to set alignment; "ZEROS" to show/hide leading zeros; "OUT" to enable/disable latch operation.
   
   `value`: for alignment: L for left align; R for right align; default set to right;
   for leading zeros: Y to show leading zeros; N to hide leading zeros; default set to N;
+  for latch operation: Y to enable latching; N to disable latching.
     
 ## TODO
 

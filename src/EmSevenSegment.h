@@ -1,8 +1,9 @@
 /*
-EmSevenSegment
-by Suhrid Srivastava
-Arduino library to drive multiple-digit 7-segment LED displays using HEF4094B, CD4094B,  CD4094BMS, MC74HCT4094A and other 4094 shift registers.
-https://github.com/ssuhrid/EmSevenSegment/
+* EmSevenSegment
+* by Suhrid Srivastava
+* Arduino library to drive multiple-digit 7-segment LED displays using HEF4094B, 
+* CD4094B,  CD4094BMS, MC74HCT4094A and other 4094 shift registers.
+* https://github.com/ssuhrid/EmSevenSegment/
 */
 
 #ifndef EmSevenSegment_h
@@ -52,7 +53,7 @@ class EmSevenSegment{
     char _type;
     char _align;
     boolean _leadingZeros;
-    boolean _print;
+    boolean _outputEnable;
 };
 
 #endif

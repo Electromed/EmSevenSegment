@@ -26,9 +26,9 @@ EmSevenSegment::EmSevenSegment(int digits,char type,uint8_t dataPin,uint8_t cloc
   _clockPin=clockPin;
   _strobePin=strobePin;
   _leadingZeros=false;
-  _print=false;
   _type=type;
   _align='R';
+  _outputEnable=false;
 }
 
 /*****************************************************************/
@@ -51,6 +51,14 @@ void EmSevenSegment::set(String s,char x){
     }
     else if (x == 'N' || x == 'n'){
       _leadingZeros = false;
+    }
+  }
+  else if (s.compareTo("OUT") == 0){
+    if (x == 'Y' || x == 'y'){
+      _outputEnable = true;
+    }
+    else if (x == 'N' || x == 'n'){
+      _outputEnable = false;
     }
   }
 }
@@ -418,10 +426,10 @@ void EmSevenSegment::writeDigits(int arr[],int digits){
     //byte digit=segment[arr[i]];
     byte digit = NUMBERS[arr[i]];
     if (_type == 'C' || _type == 'c'){
-      printHex(digit,0);
+      printHex(digit);
     }
     else {
-      printHex(~digit,0);
+      printHex(~digit);
     }
   }
   digitalWrite(_strobePin,HIGH);
@@ -436,23 +444,24 @@ void EmSevenSegment::writeChar(int arr[]){
     if (arr[i] >=27 && arr[i] <=36)
       digit=NUMBERS[arr[i]-27];
     if (_type == 'C' || _type == 'c'){
-      printHex(digit,0);
+      printHex(digit);
     }
     else {
-      printHex(~digit,0);
+      printHex(~digit);
     }
   }
   digitalWrite(_strobePin,HIGH);
 }
 
 void EmSevenSegment::printHex(byte x){
-  digitalWrite(_strobePin,LOW);
-  shiftOut(_dataPin,_clockPin,LSBFIRST,x);
-  digitalWrite(_strobePin,HIGH);
-}
-
-void EmSevenSegment::printHex(byte x,byte y){
-  shiftOut(_dataPin,_clockPin,LSBFIRST,x);
+  if( _outputEnable==true ){
+    digitalWrite(_strobePin,LOW);
+    shiftOut(_dataPin,_clockPin,LSBFIRST,x);
+    digitalWrite(_strobePin,HIGH);
+  }
+  else{
+    shiftOut(_dataPin,_clockPin,LSBFIRST,x);
+  }
 }
 
 /*****************************************************************/

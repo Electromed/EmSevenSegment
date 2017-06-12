@@ -1,0 +1,360 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"p",
+				"println"
+			],
+			[
+				"find",
+				"findLength"
+			],
+			[
+				"alig",
+				"alignLeft"
+			],
+			[
+				"digit",
+				"digits"
+			],
+			[
+				"digits-",
+				"digits-1-i"
+			],
+			[
+				"len",
+				"length"
+			],
+			[
+				"char",
+				"charAt"
+			],
+			[
+				"digi",
+				"digits"
+			],
+			[
+				"di",
+				"digit"
+			],
+			[
+				"write",
+				"writeHex"
+			],
+			[
+				"digits",
+				"_digits"
+			],
+			[
+				"pad",
+				"padding-bottom"
+			],
+			[
+				"_digi",
+				"_digits"
+			],
+			[
+				"_digit",
+				"_digits-1"
+			],
+			[
+				"N",
+				"NUMBUTTONS"
+			],
+			[
+				"NUMB",
+				"_NUMBUTTONS"
+			],
+			[
+				"button",
+				"_buttonPin"
+			],
+			[
+				"lead",
+				"leadingZeros"
+			],
+			[
+				"data",
+				"dataPin"
+			],
+			[
+				"stro",
+				"strobePin"
+			],
+			[
+				"cl",
+				"clockPin"
+			],
+			[
+				"u",
+				"uint8_t"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 120.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/F/Dropbox/Arduino/libraries/EmSevenSegment/src/EmSevenSegment.cpp",
+		"/C/xampp/htdocs/jdev/about.html",
+		"/C/xampp/htdocs/jdev/products.php",
+		"/C/xampp/htdocs/jdev/action.js",
+		"/C/xampp/htdocs/jdev/include/includes.html",
+		"/C/xampp/htdocs/jdev/css/style.css",
+		"/C/xampp/htdocs/jdev/index.html",
+		"/C/xampp/htdocs/jdev/product_list.php",
+		"/C/xampp/htdocs/jdev/css/materialize.css",
+		"/C/xampp/htdocs/jdev/js/jquery.min.js",
+		"/C/xampp/htdocs/jdev/error.html",
+		"/C/xampp/htdocs/jdev/project_page.php",
+		"/C/xampp/htdocs/jdev/project_list.html",
+		"/C/xampp/htdocs/jdev/contact.php",
+		"/C/xampp/htdocs/jdev/clients.html",
+		"/C/xampp/htdocs/jdev/include/page-footer.html",
+		"/C/xampp/htdocs/jdev/include/top-navbar.html",
+		"/C/xampp/htdocs/jdev/page-footer.html",
+		"/C/xampp/htdocs/jdev/abc.html",
+		"/C/xampp/htdocs/jdev/xyz.html",
+		"/C/Users/Suhrid/Desktop/emStamp/em.txt",
+		"/C/Users/Suhrid/Desktop/emStamp/nptc.cpp",
+		"/C/Users/Suhrid/Desktop/emStamp/nptc - Copy.cpp",
+		"/E/TV Series/Friends/Season 9/List of Friends episodes - Wikipedia, the free encyclopedia.txt",
+		"/E/Torrents/MICROSOFT.VISUAL.STUDIO.2010.ULTIMATE.RTM.X86.DVD.ENGLISH.MSDN-WZT/MICROSOFT.VISUAL.STUDIO.2010.ULTIMATE.RTM.X86.DVD.ENGLISH.MSDN-WZT.NFO",
+		"/E/Torrents/MICROSOFT.VISUAL.STUDIO.2010.ULTIMATE.RTM.X86.DVD.ENGLISH.MSDN-WZT/en_visual_studio_2010_ultimate_x86_dvd_509116.iso.NFO",
+		"/C/Users/Suhrid/Desktop/emStamp/eemg.txt",
+		"/F/Dropbox/Arduino/libraries/EmSevenSegment/src/CharacterEncoding.h",
+		"/F/Dropbox/Arduino/libraries/EmSevenSegment/src/EmSevenSegment.h",
+		"/F/Dropbox/Arduino/libraries/EmSevenSegment/EmSevenSegment.h",
+		"/F/Dropbox/Arduino/libraries/EmSevenSegment/keywords.txt",
+		"/F/Dropbox/Arduino/libraries/EmSevenSegment/README.md",
+		"/F/Dropbox/Arduino/libraries/EmSevenSegment/EmSevenSegment.cpp",
+		"/F/Dropbox/Arduino/libraries/EmSevenSegment/library.properties",
+		"/D/cmdline.txt",
+		"/D/config.txt",
+		"/D/issue.txt",
+		"/D/bootcode.bin",
+		"/F/Dropbox/Node.js/test.js",
+		"/F/Dropbox/PythonSuhrid/Major/phase_IV/test.php",
+		"/F/Dropbox/Arduino/libraries/EmSevenSegment/CharacterEncoding.h",
+		"/F/Git clones/ShiftDisplay/src/ShiftDisplay.cpp",
+		"/F/Git clones/ShiftDisplay/README.md",
+		"/C/xampp/htdocs/jdev/submit.php",
+		"/F/Git clones/ShiftDisplay/src/ShiftDisplay.h",
+		"/F/Git clones/ShiftDisplay/src/CharacterEncoding.h",
+		"/C/Program Files (x86)/Arduino/libraries/Servo/src/avr/Servo.cpp",
+		"/C/xampp/htdocs/jdev/analyticstracking.php",
+		"/C/xampp/htdocs/public_html/action.js",
+		"/C/xampp/htdocs/public_html/xyz2.html",
+		"/C/xampp/htdocs/public_html/about.html",
+		"/C/xampp/htdocs/public_html/index.html",
+		"/F/Dropbox/Arduino/libraries/EmButtons/EmButtons.cpp",
+		"/F/Dropbox/Arduino/libraries/EmButtons/keywords.txt",
+		"/F/Dropbox/Arduino/libraries/EmButtons/EmButtons.h",
+		"/F/Dropbox/Arduino/My Libraries/em-4094/EmSevenSegment/keywords.txt",
+		"/F/Dropbox/Arduino/My Libraries/em-4094/EmSevenSegment/EmSevenSegment.h",
+		"/F/Dropbox/Arduino/My Libraries/em-4094/EmSevenSegment/EmSevenSegment.cpp",
+		"/F/Dropbox/Arduino/My Libraries/arduino-4094/em-7seg-4094/keywords.txt",
+		"/F/Dropbox/7-segment-set-library/README.md",
+		"/F/Dropbox/7-segment-set-library/sevSeg4094_library/keywords.txt",
+		"/F/Dropbox/7-segment-set-library/sevSeg4094_library/sevSeg4094.cpp",
+		"/F/Dropbox/7-segment-set-library/sevSeg4094_library/sevSeg4094.h",
+		"/F/Dropbox/Arduino/libraries/RF24-master/RF24.cpp",
+		"/F/Dropbox/Arduino/libraries/sevSeg4094_library/sevSeg4094.cpp",
+		"/F/Dropbox/Arduino/libraries/sevSeg4094_library/sevSeg4094.h",
+		"/F/Dropbox/Arduino/libraries/sevSeg4094_library/keywords.txt",
+		"/C/Users/Suhrid/Documents/Arduino/libraries/DHT_sensor_library/DHT.h",
+		"/C/Users/Suhrid/Documents/Arduino/libraries/DHT_sensor_library/DHT.cpp",
+		"/F/Dropbox/7-segment-set-library/src/sevSeg4094.h",
+		"/F/Dropbox/7-segment-set-library/src/sevSeg4094.cpp",
+		"/F/Dropbox/7-segment-set-library/src/keywords.txt",
+		"/F/Dropbox/7-segment-set-library/src/sevenSeg4094.cpp",
+		"/F/Dropbox/7-segment-set-library/src/sevenSeg4094.h"
+	],
+	"find":
+	{
+		"height": 22.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"off-1",
+			"blink",
+			"d50000",
+			"blockq",
+			"E0F2",
+			"card",
+			"card-action",
+			"black",
+			"blockq",
+			"headname1",
+			"headname",
+			"blockq",
+			"icon",
+			"nav",
+			"navbar",
+			"navbar-fixed",
+			"navbar",
+			"p1",
+			"#",
+			"navbar",
+			"nav",
+			"p1",
+			"home_cont",
+			"home",
+			"foot",
+			"field1",
+			"field",
+			"field1",
+			"sevSeg4094"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"EmSevenSegment"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "EmSevenSegment.sublime-project",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 424.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
