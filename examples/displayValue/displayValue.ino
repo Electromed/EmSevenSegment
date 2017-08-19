@@ -30,7 +30,9 @@ void setup(){
 void loop(){
   int number = 6789; //Number to be displayed
   disp.print(number); // Print the number
+  delay(1000);
   int str = "test" ; //String to be displayed
   disp.print(str); // Print the number
+  delay(1000);
 }
 

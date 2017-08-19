@@ -16,6 +16,7 @@ class EmSevenSegment{
   public :
     EmSevenSegment(char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin);
     EmSevenSegment(int digits,char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin);
+    void test();
     void set(String s,char x);
     void print();
     void print(char c);

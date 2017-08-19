@@ -33,6 +33,31 @@ EmSevenSegment::EmSevenSegment(int digits,char type,uint8_t dataPin,uint8_t cloc
 
 /*****************************************************************/
 
+void EmSevenSegment::test(){
+  digitalWrite(_dataPin,0);
+  for( int i=1;i<_digits*8;i++ ){
+    digitalWrite(_clockPin,1);
+    digitalWrite(_clockPin,0);
+    digitalWrite(_strobePin,1);
+    digitalWrite(_strobePin,0);
+    delay(1);
+  }
+
+  for( int i=0;i<8;i++ ){
+    for( int j=0;j<_digits;j++ ){
+      for( int k=0;k<8;k++ ){
+        if( k==8-1-i ){ digitalWrite(_dataPin,1); }
+        else{ digitalWrite(_dataPin,0); }
+        digitalWrite(_clockPin,1);
+        digitalWrite(_clockPin,0);
+        digitalWrite(_strobePin,1);
+        digitalWrite(_strobePin,0);
+      }
+    }
+  delay(250);
+  }
+}
+
 void EmSevenSegment::set(String s,char x){
   for(int i = 0; i < s.length(); i++){
      s[i] = toupper(s[i]);

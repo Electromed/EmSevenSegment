@@ -17,3 +17,4 @@ blink	KEYWORD2
 printHex	KEYWORD2
 print	KEYWORD2
 clear	KEYWORD2
+test	KEYWORD2
