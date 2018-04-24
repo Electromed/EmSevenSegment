@@ -30,10 +30,10 @@ void setup(){
 //=============================================================//
 void loop(){
   disp.set("zeros",'y');
-  disp.writeNum(123);
+  disp.print(123);
   delay(1000);
   disp.set("zeros",'n');
-  disp.writeNum(123);
+  disp.print(123);
   delay(1000);
 }
 
