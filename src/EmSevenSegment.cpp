@@ -209,23 +209,35 @@ void EmSevenSegment::blink(int nums, String num[],int len[],int off,int blinkDel
 void EmSevenSegment::print(int num){
   // To print an int value
   //Serial.println("print(int num)");
-  long n=num;
+  unsigned long n=num;
   print(n,_digits);
 }
 
 void EmSevenSegment::print(int num,int digits){
   //Serial.println("print(int num,int digits)");
-  long n=num;
+  unsigned long n=num;
+  print(n,digits);
+}
+void EmSevenSegment::print(long num){
+  // To print an int value
+  //Serial.println("print(int num)");
+  unsigned long n=num;
+  print(n,_digits);
+}
+
+void EmSevenSegment::print(long num,int digits){
+  //Serial.println("print(int num,int digits)");
+  unsigned long n=num;
   print(n,digits);
 }
 
-void EmSevenSegment::print(long num){
+void EmSevenSegment::print(unsigned long num){
   //Print number using all displays  
   //Serial.println("print(long num)");
   print(num,_digits);
 }
 
-void EmSevenSegment::print(long num, int digits){
+void EmSevenSegment::print(unsigned long num, int digits){
   //To print an long integer
   if (digits == 0){
     digits=findLength(num);

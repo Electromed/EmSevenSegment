@@ -20,6 +20,8 @@ class EmSevenSegment{
     void set(String s,char x);
     void print();
     void print(char c);
+    void print(unsigned long num);
+    void print(unsigned long num,int digits);
     void print(long num);
     void print(long num,int digits);
     void print(int num);
