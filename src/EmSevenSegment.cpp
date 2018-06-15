@@ -100,7 +100,7 @@ uint8_t EmSevenSegment::findLength(long n){
 
 /*****************************************************************/
 
-void EmSevenSegment::print(int nums,int num[],int len[]){
+void EmSevenSegment::print(int nums,int num[], int len[]){
   int arr[_digits];
   int t1=0,t2=-1,t3;
   for(int i=0;i<nums;i++){
@@ -121,6 +121,27 @@ void EmSevenSegment::print(int nums,int num[],int len[]){
   writeDigits(arr);
 }
 
+void EmSevenSegment::print(int nums,unsigned long num[],int len[]){
+  int arr[_digits];
+  unsigned long t1=0;
+  int t2=-1,t3;
+  for(int i=0;i<nums;i++){
+    t1=num[i];
+    t2+=len[i];
+    t3=findLength(t1);
+    for (int j=0;j<t3-len[i];j++){
+      t1/=10;
+    }
+    for(int j=0;j<len[i];j++){
+      arr[_digits-1-(t2-j)]=t1%10;
+      t1/=10;
+      if(j>=t3 && _leadingZeros==false){
+        arr[_digits-1-(t2-j)]=10;
+      }
+    }    
+  }
+  writeDigits(arr);
+}
 
 void EmSevenSegment::printArray(int nums,int num[],int len[],int off){
   int arr[_digits];
@@ -150,7 +171,48 @@ void EmSevenSegment::printArray(int nums,int num[],int len[],int off){
   writeDigits(arr);
 }
 
+void EmSevenSegment::printArray(int nums,unsigned long num[],int len[],int off){
+  int arr[_digits];
+  unsigned long t1=0;
+  int t2=-1,t3;
+  for(int i=0;i<nums;i++){
+    t1=num[i];
+    t2+=len[i];
+    t3=findLength(t1);
+    if (i == off){
+      for(int j=0;j<len[i];j++){
+        arr[_digits-1-(t2-j)]=10;
+      }      
+    }
+    else{
+      for (int j=0;j<t3-len[i];j++){
+        t1/=10;
+      }
+      for(int j=0;j<len[i];j++){
+        arr[_digits-1-(t2-j)]=t1%10;
+        t1/=10;
+        if(j>=t3 && _leadingZeros==false){
+          arr[_digits-1-(t2-j)]=10;
+        }
+      }
+    }
+  }
+  writeDigits(arr);
+}
+
 void EmSevenSegment::blink(int nums, int num[],int len[],int off,int blinkDelay){
+  if ((millis() - _lastBlinkTime) > blinkDelay) {
+    _lastBlinkTime=millis();
+    if ((millis()/1000)%2 == 0){
+      printArray(nums,num,len,off);
+    }
+    else{
+      print(nums,num,len);
+    }
+  }
+}
+
+void EmSevenSegment::blink(int nums, unsigned long num[],int len[],int off,int blinkDelay){
   if ((millis() - _lastBlinkTime) > blinkDelay) {
     _lastBlinkTime=millis();
     if ((millis()/1000)%2 == 0){
@@ -204,6 +266,7 @@ void EmSevenSegment::blink(int nums, String num[],int len[],int off,int blinkDel
   }
 }
 
+
 /*****************************************************************/
 
 void EmSevenSegment::print(int num){
@@ -244,7 +307,7 @@ void EmSevenSegment::print(unsigned long num, int digits){
   }
   //Serial.println("print(long num,int digits)");
   int arr[digits];
-  int x=num;
+  unsigned long x=num;
   int len=findLength(num);
   if (len <= digits){
     x=num;

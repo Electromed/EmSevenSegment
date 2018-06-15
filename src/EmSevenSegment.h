@@ -29,8 +29,10 @@ class EmSevenSegment{
     void print(String s);
     void print(String s,int digits);
     void print(int nums,int num[],int len[]);
+    void print(int nums,unsigned long num[],int len[]);
     void print(int nums,String num[],int len[]);
     void blink(int nums, int num[],int len[],int off,int blinkDelay);
+    void blink(int nums, unsigned long num[],int len[],int off,int blinkDelay);
     void blink(int nums, String num[],int len[],int off,int blinkDelay);
     void clear();
     void clear(int digits);
@@ -45,6 +47,7 @@ class EmSevenSegment{
     void writeChar(int arr[]);
     void writeNum(long num,uint8_t c);
     void printArray(int nums,int num[],int len[],int off);
+    void printArray(int nums,unsigned long num[],int len[],int off);
     void printArray(int nums,String num[],int len[],int off);
     void blinkNum(long num,int off,int blinkDelay);
     void printHex(byte x);
