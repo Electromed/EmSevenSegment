@@ -21,7 +21,8 @@ const byte NUMBERS[] = {
 	 B11100000, // 7
 	 B11111110, // 8
 	 B11100110,  // 9
-	 B00000000 // Blank
+	 B00000000, // Blank
+	 B00000010 // Minus
 };
 
 const byte LETTERS[] = {

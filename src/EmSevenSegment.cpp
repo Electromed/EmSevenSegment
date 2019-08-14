@@ -11,6 +11,10 @@ https://github.com/ssuhrid/EmSevenSegment/
 
 /*****************************************************************/
 
+EmSevenSegment::EmSevenSegment(){
+  // Default Constructor of EmSevenSegment class
+}
+
 EmSevenSegment::EmSevenSegment(char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin){
   // Default Constructor of EmSevenSegment class
   EmSevenSegment(1,type,dataPin,clockPin,strobePin);
@@ -107,6 +111,9 @@ void EmSevenSegment::print(int nums,int num[], int len[]){
     t1=num[i];
     t2+=len[i];
     t3=findLength(t1);
+    if(num[i]<0){
+      t1 = 0- num[i];
+    }
     for (int j=0;j<t3-len[i];j++){
       t1/=10;
     }
@@ -116,7 +123,18 @@ void EmSevenSegment::print(int nums,int num[], int len[]){
       if(j>=t3 && _leadingZeros==false){
         arr[_digits-1-(t2-j)]=10;
       }
-    }    
+    }
+    if(num[i]==0){
+    	arr[_digits-1-(t2)]=0;
+    }
+    if(num[i]<0){
+      if(_leadingZeros==true){
+        arr[_digits-1-(t2-t2)] = 11;
+      }
+      else{
+        arr[_digits-1-(t2-0)+t3] = 11;
+      }
+    }
   }
   writeDigits(arr);
 }
@@ -137,6 +155,9 @@ void EmSevenSegment::print(int nums,unsigned long num[],int len[]){
       t1/=10;
       if(j>=t3 && _leadingZeros==false){
         arr[_digits-1-(t2-j)]=10;
+	    if(t3==0 && j==0){
+    	  arr[_digits-1-(t2-j)]=0;      	
+        }
       }
     }    
   }
@@ -198,6 +219,19 @@ void EmSevenSegment::printArray(int nums,unsigned long num[],int len[],int off){
     }
   }
   writeDigits(arr);
+}
+
+void EmSevenSegment::blink(String str,int off,int blinkDelay){
+  if ((millis() - _lastBlinkTime) > blinkDelay) {
+    _lastBlinkTime=millis();
+    if ((millis()/500)%2 == 0){
+      str.setCharAt(off, ' ');
+    }
+    else{
+      
+    }
+    print(str);
+  }
 }
 
 void EmSevenSegment::blink(int nums, int num[],int len[],int off,int blinkDelay){
@@ -541,6 +575,9 @@ void EmSevenSegment::writeChar(int arr[]){
   for (int i=0;i<_digits ;i++){
     //byte digit=segment[arr[i]];
     byte digit = LETTERS[arr[i]];
+    if(arr[i]=='-'){
+      digit = MINUS;
+    }
     if (arr[i] >=27 && arr[i] <=36)
       digit=NUMBERS[arr[i]-27];
     if (_type == 'C' || _type == 'c'){

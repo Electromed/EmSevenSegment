@@ -14,6 +14,7 @@
 class EmSevenSegment{
 
   public :
+    EmSevenSegment();
     EmSevenSegment(char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin);
     EmSevenSegment(int digits,char type,uint8_t dataPin,uint8_t clockPin,uint8_t strobePin);
     void test();
@@ -34,6 +35,7 @@ class EmSevenSegment{
     void blink(int nums, int num[],int len[],int off,int blinkDelay);
     void blink(int nums, unsigned long num[],int len[],int off,int blinkDelay);
     void blink(int nums, String num[],int len[],int off,int blinkDelay);
+    void blink(String str,int off,int blinkDelay);
     void clear();
     void clear(int digits);
 
